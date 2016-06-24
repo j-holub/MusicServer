@@ -1,0 +1,6 @@
+# npm modules
+node_modules/
+# IntelliJ WebStorm IDE
+.idea/
+# OS X
+*.DS_Store
