@@ -1,5 +1,10 @@
 # Changelog
 
+* **0.0.2**
+  * Delete entries from the playlist
+  * Clear playlist
+  * Minor bugfixes
+
 * **0.0.1**
   * Enqueue functionality
   * Basic controls

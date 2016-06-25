@@ -29,14 +29,17 @@ Meteor.methods({
            // get the song
            var song = downloader(url, args);
 
+           // strip the filename from characters reserved by the filesystem
+           var filename = `${sanitize(response.result.title, " ")}.mp3`;
+
            // save the song to HDD
-           song.pipe(fs.createWriteStream(`songs/${sanitize(response.result.title, " ")}.mp3`));
+           song.pipe(fs.createWriteStream(`songs/${filename}`));
 
            var playlistEntry = {
                title: response.result.title,
                url: url,
                duration: response.result.duration,
-               file: `songs/${response.result.title}.mp3`,
+               file: `songs/${filename}`,
                position: playlistLength
            };
 
@@ -59,5 +62,49 @@ Meteor.methods({
 
 
 
-   }
+   },
+    // deletes an entry in the playlist
+    'delete': function(pos){
+        // it is not possible to delete the currently playing song
+        if(pos == 0){
+            return false;
+        }
+        // pos >= 1
+        else {
+            var deleteCandidate = Playlist.findOne({'position': pos});
+
+            // if the position is avaiable
+            if (deleteCandidate) {
+                // delete associated file
+                if(deleteCandidate.file) {
+                    fs.unlinkSync(deleteCandidate.file);
+                }
+                // remove the entry from the playlist
+                Playlist.remove(deleteCandidate._id);
+                // adjust playist positions
+                Playlist.update({
+                    'position': {$gte: pos}
+                },
+                {
+                    $inc: {'position': -1}
+                },
+                {
+                    $multi: true
+                });
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    // clears the whole playlist
+    clear: function() {
+        Playlist.find().fetch().forEach(function (title) {
+            if(title.file){
+                fs.unlinkSync(title.file);
+            }
+            Playlist.remove(title._id);
+        });
+    }
 });

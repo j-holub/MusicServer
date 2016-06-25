@@ -43,7 +43,7 @@ Meteor.startup(function() {
             // write it to the HDD
             song.pipe(fs.createWriteStream(`songs/${sanitize(queuedSong.title, " ")}.mp3`));
 
-            console.log(`Handling title "${queuedSong.title}`);
+            console.log(`Handling title "${queuedSong.title}"`);
         });
     }
 
