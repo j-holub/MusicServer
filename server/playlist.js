@@ -37,7 +37,7 @@ Meteor.methods({
                duration: response.result.duration,
                file: `songs/${response.result.title}.mp3`,
                position: playlistLength
-           }
+           };
 
            // TODO Error handling
            Playlist.insert(playlistEntry);
