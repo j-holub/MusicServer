@@ -6,8 +6,11 @@ import fs  from 'fs';
 // global variable to access mpv
 mpv_player = null;
 
-// state wether songs should be cached or not
+// state weather songs should be cached or not
 cached = true;
+
+// saves the mpv status properties
+player_status = {};
 
 Meteor.startup(function() {
 
@@ -16,27 +19,33 @@ Meteor.startup(function() {
         audio_only: true
     });
 
+    // set up the events
+    mpv_player.on('stopped', Meteor.bindEnvironment(mpv_stopped));
+    mpv_player.on('statuschange', mpv_statuschange);
+
     // create the folder to store the cached songs
     if(!fs.existsSync('songs')){
         fs.mkdirSync('songs');
     }
 
+
     // download every song if cached mode is activated
-    if(cached){
+    if (cached) {
         // arguments to select the format for youtube-dl
-        var args = ['--format=251/171/140/250/249/best'];
+        var args = ['--format=251/171/140/250/249/bestaudio'];
 
         // download each song in the playlist
-        Playlist.find().forEach(function(queuedSong){
+        Playlist.find().forEach(function (queuedSong) {
             // download the song
             var song = downloader(queuedSong.url, args);
+
             // write it to the HDD
             song.pipe(fs.createWriteStream(`songs/${queuedSong.title}.mp3`));
 
             console.log(`Handling title "${queuedSong.title}`);
         });
-
-
     }
+
+
 
 });

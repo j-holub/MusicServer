@@ -23,7 +23,7 @@ Meteor.methods({
        if(cached){
 
            // default arguments youtube-dl
-           var args = ['--format=251/171/140/250/249/best'];
+           var args = ['--format=251/171/140/250/249/bestaudio'];
 
            // get the song
            var song = downloader(url, args);
@@ -50,7 +50,7 @@ Meteor.methods({
                url: url,
                duration: response.result.duration,
                position: playlistLength
-           };
+           }
 
            // TODO Error hanlding
            Playlist.insert(PlaylistEntry);
