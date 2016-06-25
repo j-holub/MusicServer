@@ -1,6 +1,7 @@
 import downloader from 'youtube-dl';
 import mpv from 'node-mpv';
 import fs  from 'fs';
+import sanitize from 'sanitize-filename'
 
 
 // global variable to access mpv
@@ -40,7 +41,7 @@ Meteor.startup(function() {
             var song = downloader(queuedSong.url, args);
 
             // write it to the HDD
-            song.pipe(fs.createWriteStream(`songs/${queuedSong.title}.mp3`));
+            song.pipe(fs.createWriteStream(`songs/${sanitize(queuedSong.title, " ")}.mp3`));
 
             console.log(`Handling title "${queuedSong.title}`);
         });

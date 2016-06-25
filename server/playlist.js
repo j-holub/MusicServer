@@ -1,5 +1,6 @@
 import fs from 'fs';
 import downloader from 'youtube-dl';
+import sanitize from 'sanitize-filename'
 
 
 Meteor.methods({
@@ -29,7 +30,7 @@ Meteor.methods({
            var song = downloader(url, args);
 
            // save the song to HDD
-           song.pipe(fs.createWriteStream(`songs/${response.result.title}.mp3`));
+           song.pipe(fs.createWriteStream(`songs/${sanitize(response.result.title, " ")}.mp3`));
 
            var playlistEntry = {
                title: response.result.title,
