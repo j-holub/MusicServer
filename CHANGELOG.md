@@ -1,5 +1,8 @@
 # Changelog
 
+* **0.0.3**
+  * Thumbnail support
+
 * **0.0.2**
   * Delete entries from the playlist
   * Clear playlist

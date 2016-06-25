@@ -40,7 +40,8 @@ Meteor.methods({
                url: url,
                duration: response.result.duration,
                file: `songs/${filename}`,
-               position: playlistLength
+               position: playlistLength,
+               thumbnail: response.result.thumbnails[0].url
            };
 
            // TODO Error handling
@@ -53,7 +54,8 @@ Meteor.methods({
                tite: response.result.title,
                url: url,
                duration: response.result.duration,
-               position: playlistLength
+               position: playlistLength,
+               thumbnail: response.result.thumbnails[0].url
            }
 
            // TODO Error hanlding
