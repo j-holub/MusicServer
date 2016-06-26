@@ -1,6 +1,6 @@
 
 Template.playlist.helpers({
    listPlaylist: function() {
-       return Playlist.find({}, {sort: {'position': 1}});
+       return Playlist.find({'position': {$gte: 1}}, {sort: {'position': 1}});
    }
 });

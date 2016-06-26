@@ -1,0 +1,24 @@
+
+<template name="controlpanel">
+    <section id="controlpanel">
+        
+        	{{#with currentSong}}
+	<div class="row">
+		
+		<!-- Thumbnail display -->
+		<div class="col s12 m12 l5">
+			<img src="{{thumbnail}}" alt="{{title}} Thumbnail" id="thumbnail">
+		</div>
+
+		<!-- info + controlling -->
+		<div class="col s12 m12 l7" id="infocontrol">
+			<p>{{title}}</p>
+
+			<p><button id="playpause">Play</button> <button id="skip">Skip</button></p>
+		</div>
+
+	</div>
+	{{/with}}
+
+    </section>
+</template>
