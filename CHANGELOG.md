@@ -1,5 +1,9 @@
 # Changelog
 
+* **0.1.0**
+  * Basic Web UI
+  * Delete playlist entry
+
 * **0.0.3**
   * Thumbnail support
 
