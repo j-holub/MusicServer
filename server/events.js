@@ -34,7 +34,7 @@ mpv_stopped = function() {
 
         // delete  it
         // TODO maybe only delete songs if a limit of cached songs is deleted
-        if(lastSong.file){
+        if(lastSong.file && fs.existsSync(lastSong.file)){
             fs.unlinkSync(lastSong.file);
         }
         // TODO maybe keep the old songs with a negative playlist position to allow going back
