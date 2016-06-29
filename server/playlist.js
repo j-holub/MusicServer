@@ -78,7 +78,7 @@ Meteor.methods({
             // if the position is avaiable
             if (deleteCandidate) {
                 // delete associated file
-                if(deleteCandidate.file) {
+                if(deleteCandidate.file && fs.existsSync(deleteCandidate.file)) {
                     fs.unlinkSync(deleteCandidate.file);
                 }
                 // remove the entry from the playlist
