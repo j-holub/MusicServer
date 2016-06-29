@@ -3,15 +3,9 @@ import fs  from 'fs';
 // will update the current status
 mpv_statuschange = function(status) {
 
-    // if the titlename changes a new song was started, reset the time
-    if(player_status['media-title'] != status['media-title']){
-        Status.update({}, {$set: {'currentPosition': timeposition}});
-    }
-
     // this really copies the object instead of passing a reference
-    player_status = Object.assign({}, status);
+    player_status = status;
 
-    console.log(status);
 }
 
 

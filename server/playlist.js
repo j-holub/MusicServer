@@ -17,54 +17,47 @@ Meteor.methods({
            }) ;
        });
 
+       // check wether youtube-dl was able to handle the url
+       if(!response.result){
+            throw new Meteor.Error('url_invalid', 'url was not valid');
+       }
+
        // number of titles in the playlist
        var playlistLength = Playlist.find().count();
 
-       // download the song if cached
-       if(cached){
-
-           // default arguments youtube-dl
-           var args = ['--format=251/171/140/250/249/bestaudio'];
-
-           // get the song
-           var song = downloader(url, args);
-
-           // strip the filename from characters reserved by the filesystem
-           var filename = `${sanitize(response.result.title, " ")}.mp3`;
-
-           // save the song to HDD
-           song.pipe(fs.createWriteStream(`songs/${filename}`));
-
-           var playlistEntry = {
+       // create the entry attributes
+       var playlistEntry = {
                title: response.result.title,
                url: url,
                duration: response.result.duration,
-               file: `songs/${filename}`,
                position: playlistLength,
                thumbnail: response.result.thumbnails[0].url
-           };
+      };
 
-           // TODO Error handling
-           var newsong = Playlist.insert(playlistEntry);
+      // insert the song
+      Playlist.insert(playlistEntry, function(error, id){
+            if(!error){
+                  // if cached download the song
+                  if(cached){
+                      // default arguments youtube-dl
+                      var args = ['--format=251/171/140/250/249/bestaudio'];
 
-       }
-       // only enter the url
-       else{
-           var playlistEntry = {
-               tite: response.result.title,
-               url: url,
-               duration: response.result.duration,
-               position: playlistLength,
-               thumbnail: response.result.thumbnails[0].url
-           }
+                       // get the song
+                       var song = downloader(url, args);
 
-           // TODO Error hanlding
-           var newsong= Playlist.insert(PlaylistEntry);
+                       // strip the filename from characters reserved by the filesystem
+                       var filename = `${sanitize(response.result.title, " ")}.mp3`;
 
-       }
+                       // save the song to HDD
+                       song.pipe(fs.createWriteStream(`songs/${filename}`));
 
-
-
+                       Playlist.update({_id: id}, {$set: {'file': `songs${filename}`}});
+                } 
+            }
+            else{
+                console.log("Error in enqueue: " + error.message);
+            }
+      });
    },
     // deletes an entry in the playlist
     'delete': function(pos){
