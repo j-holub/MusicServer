@@ -1,5 +1,8 @@
 # Changelog
 
+* **0.1.1**
+  * Time is displayed live on the client
+
 * **0.1.0**
   * Basic Web UI
   * Delete playlist entry
