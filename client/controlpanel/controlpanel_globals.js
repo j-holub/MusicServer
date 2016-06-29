@@ -4,22 +4,27 @@ playingStatus = false;
 
 // interval timer
 intervalTimer = null;
+// required to clear the interval
 updateTimer = function( ){
 	if(playingStatus){
 		// increase the timer
 		clientTimePos += 1;
 
-		minutes = Math.floor(clientTimePos / 60);
-		seconds = clientTimePos % 60;
+		// set the time in the UI
+		setTimeUI(clientTimePos);
+	}
+}
 
-		if(seconds>9){
-			timePosString = `${minutes}:${seconds}`;
-		}
-		else{
-			timePosString = `${minutes}:0${seconds}`;
-		}
 
-		$('#timepos').text(timePosString);
+// sets the client time position in the UI
+setTimeUI = function(time) {
+	var minutes = Math.floor(time/60);
+	var seconds = time % 60;
 
+	if(seconds>9){
+		$('#timepos').text(`${minutes}:${seconds}`);
+	}
+	else{
+		$('#timepos').text(`${minutes}:0${seconds}`);
 	}
 }

@@ -21,41 +21,36 @@ Template.controlpanel.events({
 	}
 });
 
+
+
 Template.controlpanel.onCreated(function() {
 	// this updates the states whenever they are changed on the serverside
 	this.autorun(function() {
 		var status = Status.findOne();
 		if(status){
+			// clear the timer to prevent races
+			clearInterval(intervalTimer);
+			// update the client status vars
 			clientTimePos = status.currentPosition;
 			playingStatus  = status.playing;
+			// set the time accordingly
+			setTimeUI(clientTimePos);
 			// reset the timer to prevent syncronisation bugs
-			clearInterval(intervalTimer);
 			intervalTimer = setInterval(updateTimer, 1000);
 		}
 	});
 });
 
-Template.controlpanel.onRendered(function() {
 
-	var timePosString;
-	var minutes;
-	var seconds;
+
+Template.controlpanel.onRendered(function() {
 
 	// when DOM has rendered set the correct time
 	setTimeout(function() {
 		Meteor.call('getTimePos', function(error, time){
 			if(!error){
-				clientTimePos = time;
-
-				var minutes = Math.floor(time/60);
-				var seconds = time % 60;
-
-				if(seconds>9){
-					$('#timepos').text(`${minutes}:${seconds}`);
-				}
-				else{
-					$('#timepos').text(`${minutes}:0${seconds}`);
-				}
+				// displays the time in the UI
+				setTimeUI(time);
 			}	
 		});
 	// give the DOM time to load

@@ -16,9 +16,6 @@ Meteor.methods({
             else{
                 mpv_player.loadStream(song.url);
             }
-
-            // set the playing status
-            Status.update({}, {$set: {'playing': true, 'currentPosition': timeposition}});
         }
     },
     // toggles pause mode

@@ -26,7 +26,10 @@ Meteor.startup(function() {
     });
 
     // set up the events
+    mpv_player.on('started', Meteor.bindEnvironment(mpv_started));
     mpv_player.on('stopped', Meteor.bindEnvironment(mpv_stopped));
+    mpv_player.on('paused', Meteor.bindEnvironment(mpv_paused));
+    mpv_player.on('resumed', Meteor.bindEnvironment(mpv_resumed));
     mpv_player.on('statuschange', Meteor.bindEnvironment(mpv_statuschange));
     mpv_player.on('timeposition', Meteor.bindEnvironment(mpv_timeposition));
 

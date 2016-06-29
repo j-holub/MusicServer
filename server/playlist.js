@@ -45,7 +45,7 @@ Meteor.methods({
            };
 
            // TODO Error handling
-           Playlist.insert(playlistEntry);
+           var newsong = Playlist.insert(playlistEntry);
 
        }
        // only enter the url
@@ -59,7 +59,8 @@ Meteor.methods({
            }
 
            // TODO Error hanlding
-           Playlist.insert(PlaylistEntry);
+           var newsong= Playlist.insert(PlaylistEntry);
+
        }
 
 

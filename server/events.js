@@ -3,12 +3,6 @@ import fs  from 'fs';
 // will update the current status
 mpv_statuschange = function(status) {
 
-    // if the pause status has change update it in the status object
-    if(player_status.pause != status.pause){
-        // update playing status and current timeposition
-        Status.update({}, {$set: {'playing': !status.pause, 'currentPosition': timeposition}});
-    }
-
     // if the titlename changes a new song was started, reset the time
     if(player_status['media-title'] != status['media-title']){
         Status.update({}, {$set: {'currentPosition': timeposition}});
@@ -16,10 +10,23 @@ mpv_statuschange = function(status) {
 
     // this really copies the object instead of passing a reference
     player_status = Object.assign({}, status);
+
+    console.log(status);
 }
 
+
+
+
+mpv_started = function() {
+    // set the playing state accordingly
+    Status.update({}, {$set: {'playing': true, 'currentPosition': timeposition}});
+}
+
+
+
+
 // when stopped the next song in the queue will be played
-mpv_stopped = function(){
+mpv_stopped = function() {
 
     // set the playing status to false
     Status.update({}, {$set: {playing: false, currentPosition: 0}});
@@ -48,6 +55,20 @@ mpv_stopped = function(){
         }
     }
 }
+
+
+
+mpv_paused = function() {
+    Status.update({}, {$set: {'playing': false, 'currentPosition': timeposition}});
+}
+
+
+
+mpv_resumed = function() {
+    Status.update({}, {$set: {'playing': true, 'currentPosition': timeposition}});
+}
+
+
 
 mpv_timeposition = function(time){
     timeposition = parseInt(time);
