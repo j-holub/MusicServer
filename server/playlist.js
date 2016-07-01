@@ -29,7 +29,7 @@ Meteor.methods({
        var playlistEntry = {
                title: response.result.title,
                url: url,
-               duration: response.result.duration,
+               duration: timeStringToSeconds(response.result.duration),
                position: playlistLength,
                thumbnail: response.result.thumbnails[0].url
       };
