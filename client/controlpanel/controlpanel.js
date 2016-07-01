@@ -49,8 +49,14 @@ Template.controlpanel.onRendered(function() {
 	setTimeout(function() {
 		Meteor.call('getTimePos', function(error, time){
 			if(!error){
+				// clear the timer to prevent races
+				clearInterval(intervalTimer);
+				// set the client time
+				clientTimePos = time;
 				// displays the time in the UI
 				setTimeUI(time);
+				// reset the timer to prevent syncronisation bugs
+				intervalTimer = setInterval(updateTimer, 1000);
 			}	
 		});
 	// give the DOM time to load
