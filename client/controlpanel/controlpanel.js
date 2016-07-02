@@ -80,6 +80,10 @@ Template.controlpanel.events({
 
 Template.controlpanel.onCreated(function() {
 
+	// subscribe to the publications
+	Meteor.subscribe('currentSong');
+	Meteor.subscribe('status');
+
 	// define client time position as a reactive var
 	this.clientTimePos = new ReactiveVar(0);
 

@@ -32,3 +32,8 @@ Template.playlist.events({
 		Meteor.call('delete', this.position);
 	}
 });
+
+
+Template.playlist.onCreated(function() {
+	Meteor.subscribe('playlist');
+});

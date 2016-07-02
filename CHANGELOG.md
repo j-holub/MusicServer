@@ -1,5 +1,8 @@
 # Changelog
 
+* **0.1.2**
+  * removed autopublish package
+
 * **0.1.1**
   * Time is displayed live on the client
   * Invalid URLs are now caught
