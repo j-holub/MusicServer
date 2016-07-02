@@ -51,7 +51,7 @@ Meteor.methods({
                        // save the song to HDD
                        song.pipe(fs.createWriteStream(`songs/${filename}`));
 
-                       Playlist.update({_id: id}, {$set: {'file': `songs${filename}`}});
+                       Playlist.update({_id: id}, {$set: {'file': `songs/${filename}`}});
                 } 
             }
             else{

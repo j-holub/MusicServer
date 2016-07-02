@@ -31,6 +31,36 @@ Template.controlpanel.helpers({
 		}
 
 		
+	},
+	currentPosition: function() {
+		// the current position
+		var time = Template.instance().clientTimePos.get();
+		// whole duration of the song
+		var durationMinutes = Math.floor(this.duration/60);
+
+		var minutes  = Math.floor(time / 60);
+		var seconds = time % 60;
+
+		// add leading 0 for 1 digit values
+		var secondString = seconds > 9 ? `${seconds}` : `0${seconds}`;
+
+		// check if 1 hour is exceeded
+		if(minutes >= 60 || durationMinutes >= 60){
+			var hours = Math.floor(minutes/60);
+			minutes = minutes - (hours*60);
+
+			var durationHours = Math.floor(durationMinutes);
+
+			// add leading 0 for 1 digit value
+			var minuteString = minutes > 9 ? `${minutes}` : `0${minutes}`;
+			var hourString   = durationHours > 9 ? `${hours}` : `0${hours}`;
+
+			return `${hourString}:${minuteString}:${secondString}`;
+		}
+		// 1 hour is not exceeded
+		else{
+			return `${minutes}:${secondString}`;
+		}
 	}
 });
 
@@ -49,48 +79,62 @@ Template.controlpanel.events({
 
 
 Template.controlpanel.onCreated(function() {
+
+	// define client time position as a reactive var
+	this.clientTimePos = new ReactiveVar(0);
+
+	// keeps track of wether a song is playing or not
+	this.playingStatus;
+
 	// this updates the states whenever they are changed on the serverside
 	this.autorun(function() {
 		var status = Status.findOne();
 		if(status){
 			// clear the timer to prevent races
-			clearInterval(intervalTimer);
+			clearInterval(this.intervalTimer);
 			// update the client status vars
-			clientTimePos = status.currentPosition;
-			playingStatus  = status.playing;
-			// set the time accordingly
-			setTimeUI(clientTimePos);
+			this.clientTimePos.set(status.currentPosition);
+			this.playingStatus  = status.playing;
 			// reset the timer to prevent syncronisation bugs
-			intervalTimer = setInterval(updateTimer, 1000);
+			this.intervalTimer = setInterval(this.updateTimer, 1000);
 		}
-	});
+	}.bind(this));
+
+	// the interval function
+	this.updateTimer = function( ){
+		if(this.playingStatus){
+			// increase the timer
+			var current = this.clientTimePos.get();
+			current += 1;
+			this.clientTimePos.set(current);
+		};
+	}.bind(this)
+	
+	// the interval timer
+	this.intervalTimer = setInterval(this.updateTimer, 1000);
+
 });
 
 
 
 Template.controlpanel.onRendered(function() {
 
-	// when DOM has rendered set the correct time
-	setTimeout(function() {
-		Meteor.call('getTimePos', function(error, time){
-			if(!error){
-				// clear the timer to prevent races
-				clearInterval(intervalTimer);
-				// set the client time
-				clientTimePos = time;
-				// displays the time in the UI
-				setTimeUI(time);
-				// reset the timer to prevent syncronisation bugs
-				intervalTimer = setInterval(updateTimer, 1000);
-			}	
-		});
-	// give the DOM time to load
-	// for some reason $(document).ready() does not work
-	}, 200);
 
-	// set the timer to update the client time roughly every second
-	intervalTimer = setInterval(updateTimer, 1000);
-
+	setTimeout(
+	// get the correct time as soon as the template has rendered
+	Meteor.call('getTimePos', function(error, time){
+		if(!error){
+			console.log(time);
+			// clear the timer to prevent races
+			clearInterval(this.intervalTimer);
+			// set the client time
+			this.clientTimePos.set(time);
+			// reset the timer to prevent syncronisation bugs
+			this.intervalTimer = setInterval(this.updateTimer, 1000);
+		}	
+	// to be able to access the clientTimePos Reactive var
+	}.bind(this)), 200);
+	
 });
 
 
