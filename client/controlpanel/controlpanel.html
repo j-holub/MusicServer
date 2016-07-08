@@ -1,7 +1,7 @@
 
 <template name="controlpanel">
     <section id="controlpanel">
-        	{{#with currentSong}}
+    {{#with currentSong}}
 	<div class="row">
 		
 		<!-- Thumbnail display -->
@@ -15,7 +15,11 @@
 
 			<p><button id="playpause">Play</button> <button id="skip">Skip</button></p>
 
-			<p>{{currentPosition}} / {{durationDisplay}}</p>
+			<p><div id="timeSlider"></div></p>{{adjustSlider}}
+			
+			<p><span id="currentPos">{{currentPosition}}</span> / {{durationDisplay}}</p>
+
+
 		</div>
 
 	</div>

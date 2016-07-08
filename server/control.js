@@ -8,12 +8,16 @@ Meteor.methods({
         if(Playlist.find().count() > 0){
             var song = Playlist.findOne({'position': 0});
 
+            console.log(song);
+
             // if the song was downloaded play the local file
             if(song.file && fs.existsSync(song.file)){
+                console.log("loadFile");
                 mpv_player.loadFile(song.file);
             }
             // stream the song
             else{
+                console.log("stream");
                 mpv_player.loadStream(song.url);
             }
         }
@@ -49,15 +53,10 @@ Meteor.methods({
     jumpTo: function(sec) {
         mpv_player.goToPosition(sec);
         // this will set the correct time on the next timeposition event
-        Status.update({}, {$set: {'currentPosition': timeposition}});
+        setTime = true;
     },
     getTimePos: function() {
-        console.log(timeposition);
-        if(timeposition){
-            return timeposition;        
-        }
-        else{
-            return 0;
-        }
+        Status.update({}, {$set: {'currentPosition': timeposition}});
+        return timeposition;
     }
 });

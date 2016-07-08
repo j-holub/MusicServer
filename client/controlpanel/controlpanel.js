@@ -1,4 +1,4 @@
-
+import noUiSlider from'nouislider';
 
 Template.controlpanel.helpers({
 	currentSong: function () {
@@ -9,57 +9,29 @@ Template.controlpanel.helpers({
 	},
 	// is always called in the context of a playlist entry
 	durationDisplay: function() {
-		var minutes  = Math.floor(this.duration / 60);
-		var seconds = this.duration % 60;
-
-		// add leading 0 for 1 digit values
-		var secondString = seconds > 9 ? `${seconds}` : `0${seconds}`;
-
-		// check if 1 hour is exceeded
-		if(minutes >= 60){
-			var hours = Math.floor(minutes/60);
-			minutes = minutes - (hours*60);
-
-			// add leading 0 for 1 digit value
-			var minuteString = minutes > 9 ? `${minutes}` : `0${minutes}`;
-
-			return `${hours}:${minuteString}:${secondString}`;
-		}
-		// 1 hour is not exceeded
-		else{
-			return `${minutes}:${secondString}`;
-		}
-
-		
+		// return the formatted time string
+		return timeFormat(this.duration, this.duration);
 	},
 	currentPosition: function() {
 		// the current position
 		var time = Template.instance().clientTimePos.get();
 		// whole duration of the song
-		var durationMinutes = Math.floor(this.duration/60);
+		var duration = this.duration;
 
-		var minutes  = Math.floor(time / 60);
-		var seconds = time % 60;
+		// return the formatted time string
+		return timeFormat(time, duration);
+	},
+	// on song change this function sets the range of the slider
+	adjustSlider: function() {
+		var currentSong = Playlist.findOne({'position': 0});
 
-		// add leading 0 for 1 digit values
-		var secondString = seconds > 9 ? `${seconds}` : `0${seconds}`;
-
-		// check if 1 hour is exceeded
-		if(minutes >= 60 || durationMinutes >= 60){
-			var hours = Math.floor(minutes/60);
-			minutes = minutes - (hours*60);
-
-			var durationHours = Math.floor(durationMinutes);
-
-			// add leading 0 for 1 digit value
-			var minuteString = minutes > 9 ? `${minutes}` : `0${minutes}`;
-			var hourString   = durationHours > 9 ? `${hours}` : `0${hours}`;
-
-			return `${hourString}:${minuteString}:${secondString}`;
-		}
-		// 1 hour is not exceeded
-		else{
-			return `${minutes}:${secondString}`;
+		if(Template.instance().slider && currentSong){
+			Template.instance().slider.noUiSlider.updateOptions({
+				range: {
+					'min': 0,
+					'max': currentSong.duration
+				}
+			});
 		}
 	}
 });
@@ -68,11 +40,16 @@ Template.controlpanel.helpers({
 Template.controlpanel.events({
 	'click #playpause': function () {
 		// if playing toggle pause
-		Meteor.call('pause');
-		
+		Meteor.call('pause');		
 	},
 	'click #skip': function() {
 		Meteor.call('skip');
+	},
+	'set': function(values) {
+		console.log(values);
+	},
+	'change': function(value) {
+		console.log(value);
 	}
 });
 
@@ -80,8 +57,9 @@ Template.controlpanel.events({
 
 Template.controlpanel.onCreated(function() {
 
+
 	// subscribe to the publications
-	Meteor.subscribe('currentSong');
+	this.currentSongSubscription = Meteor.subscribe('currentSong');
 	Meteor.subscribe('status');
 
 	// define client time position as a reactive var
@@ -90,9 +68,17 @@ Template.controlpanel.onCreated(function() {
 	// keeps track of wether a song is playing or not
 	this.playingStatus;
 
+	// keeps track of wether the slider is moved at the moment
+	this.sliding = false;
+
+	// this will update the time position server side
+	// resulting in a hotpush to every client
+	Meteor.call('getTimePos');
+
 	// this updates the states whenever they are changed on the serverside
 	this.autorun(function() {
 		var status = Status.findOne();
+		// var currentSong = Playlist.findOne({'position': 0});
 		if(status){
 			// clear the timer to prevent races
 			clearInterval(this.intervalTimer);
@@ -105,40 +91,26 @@ Template.controlpanel.onCreated(function() {
 	}.bind(this));
 
 	// the interval function
+	// this function updates the client time position roughly every second
 	this.updateTimer = function( ){
 		if(this.playingStatus){
-			// increase the timer
-			var current = this.clientTimePos.get();
-			current += 1;
-			this.clientTimePos.set(current);
+			// update the slider position if the user isn't dragging it at the moment
+			if(this.slider && !this.sliding){
+				// increase the timer
+				this.clientTimePos.set(this.clientTimePos.get() + 1);
+				this.slider.noUiSlider.set(this.clientTimePos.get());
+			}
 		};
 	}.bind(this)
 	
-	// the interval timer
+	// the interval timer updates the time roughly every second
 	this.intervalTimer = setInterval(this.updateTimer, 1000);
 
-});
+	// the UI slider
+	this.slider;
 
-
-
-Template.controlpanel.onRendered(function() {
-
-
-	setTimeout(
-	// get the correct time as soon as the template has rendered
-	Meteor.call('getTimePos', function(error, time){
-		if(!error){
-			console.log(time);
-			// clear the timer to prevent races
-			clearInterval(this.intervalTimer);
-			// set the client time
-			this.clientTimePos.set(time);
-			// reset the timer to prevent syncronisation bugs
-			this.intervalTimer = setInterval(this.updateTimer, 1000);
-		}	
-	// to be able to access the clientTimePos Reactive var
-	}.bind(this)), 200);
 	
+
 });
 
 
