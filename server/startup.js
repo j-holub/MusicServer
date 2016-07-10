@@ -71,6 +71,12 @@ Meteor.startup(function() {
         Status.update({}, {$set: {'currentPosition': timeposition}});
     }), 20000);
 
-
+    // if there are songs in the queue, play them
+    if(Playlist.find().count() > 0){
+        // TODO find something better for the timeout
+        setTimeout(Meteor.bindEnvironment(function(){
+            Meteor.call('play');
+        }), 3000);
+    }
 
 });

@@ -14,7 +14,6 @@ mpv_statuschange = function(status) {
 mpv_started = function() {
     // set the playing state accordingly
     Status.update({}, {$set: {'playing': true, 'currentPosition': timeposition}});
-    console.log("started");
 }
 
 
@@ -22,7 +21,6 @@ mpv_started = function() {
 
 // when stopped the next song in the queue will be played
 mpv_stopped = function() {
-    console.log("stopped");
 
     // set the playing status to false
     Status.update({}, {$set: {playing: false, currentPosition: 0}});

@@ -37,22 +37,31 @@ Meteor.methods({
       // insert the song
       Playlist.insert(playlistEntry, function(error, id){
             if(!error){
-                  // if cached download the song
-                  if(cached){
-                      // default arguments youtube-dl
-                      var args = ['--format=251/171/140/250/249/bestaudio'];
+                // if cached download the song
+                if(cached){
+                  // default arguments youtube-dl
+                  var args = ['--format=251/171/140/250/249/bestaudio'];
 
-                       // get the song
-                       var song = downloader(url, args);
+                  // get the song
+                  var song = downloader(url, args);
 
-                       // strip the filename from characters reserved by the filesystem
-                       var filename = `${sanitize(response.result.title, " ")}.mp3`;
+                  // strip the filename from characters reserved by the filesystem
+                  var filename = `${sanitize(response.result.title, " ")}.mp3`;
 
-                       // save the song to HDD
-                       song.pipe(fs.createWriteStream(`songs/${filename}`));
+                  // save the song to HDD
+                  song.pipe(fs.createWriteStream(`songs/${filename}`));
 
-                       Playlist.update({_id: id}, {$set: {'file': `songs/${filename}`}});
+                  Playlist.update({_id: id}, {$set: {'file': `songs/${filename}`}});
                 } 
+
+                // playlistLength is the length BEFORE inserting the new song
+                // if this is the only song in the playlist, start it
+                if(playlistLength == 0){
+                	// TODO find something better for the timeout
+                  setTimeout(Meteor.bindEnvironment(function() {
+                    Meteor.call('play');
+                  }), 3000);
+                }
             }
             else{
                 console.log("Error in enqueue: " + error.message);

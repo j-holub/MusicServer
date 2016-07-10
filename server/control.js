@@ -3,21 +3,17 @@ import fs  from 'fs';
 Meteor.methods({
    // plays the first song in the playlist
     play: function() {
-        // check if at least one song is enqueued
         console.log("play");
+        // check if at least one song is enqueued
         if(Playlist.find().count() > 0){
             var song = Playlist.findOne({'position': 0});
 
-            console.log(song);
-
             // if the song was downloaded play the local file
             if(song.file && fs.existsSync(song.file)){
-                console.log("loadFile");
                 mpv_player.loadFile(song.file);
             }
             // stream the song
             else{
-                console.log("stream");
                 mpv_player.loadStream(song.url);
             }
         }

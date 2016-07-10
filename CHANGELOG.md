@@ -1,5 +1,8 @@
 # Changelog
 
+* **0.1.4**
+  * Songs are automatically played
+
 * **0.1.3**
   * Implemented a Slider for the song Position. Can be used to search in the song
   * Fixed a bug with the "jumpTo" function
