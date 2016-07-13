@@ -17,6 +17,12 @@ Template.controlpanel.onRendered(function() {
 				setTimeout(function() {
 					// set the slider
 					this.slider = $('#timeSlider')[0];
+
+					// in case the slider was already initalized destroy it
+					if(this.slider.noUiSlider){
+						this.slider.noUiSlider.destroy();
+					}
+
 					// create the noUiSlider for the song position
 					noUiSlider.create(this.slider, {
 						animate: false,
@@ -54,10 +60,12 @@ Template.controlpanel.onRendered(function() {
 					}.bind(this));
 						
 				}.bind(this), 100);
+
 			}
 		}
 	}.bind(this));
-		
+			
+
 
 });	
 

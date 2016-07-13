@@ -37,7 +37,11 @@ Meteor.methods({
     },
     // adjust the volume
     volume: function(vol) {
-        mpv_player.volume(vol);
+        mpv_player.volume(parseInt(vol));
+        // unmute if the volume is above 0
+        if(vol > 0 && player_status.mute){
+            mpv_player.mute();
+        }
     },
     // seek in the title
     seek: function(sec) {
@@ -54,5 +58,9 @@ Meteor.methods({
     getTimePos: function() {
         Status.update({}, {$set: {'currentPosition': timeposition}});
         return timeposition;
-    }
+    },
+     // updates the Status object so the current volume is pushed to all clients
+    update: function() {
+        Status.update({}, {$set:{'volume': player_status.volume, 'currentPosition': timeposition}});
+    },
 });

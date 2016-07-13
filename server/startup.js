@@ -17,6 +17,10 @@ player_status = {};
 timeposition = 0;
 setTime = false;
 
+// to save the volume value when muted
+volume_before_mute = 0;
+
+
 Meteor.startup(function() {
 
     // start mpv player in audio only mode
@@ -43,11 +47,16 @@ Meteor.startup(function() {
         Status.insert({
             currentPosition: 0,
             playing: false,
+            volume: 50
         });
     }
     else{
         Status.update({}, {$set: {currentPosition: 0, playing: false}});
     }
+
+    // set the volume
+    mpv_player.volume(Status.findOne().volume);
+    volume_before_mute = Status.findOne().volume;
 
     // download every song if cached mode is activated
     if (cached) {

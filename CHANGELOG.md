@@ -2,6 +2,7 @@
 
 * **0.1.4**
   * Songs are automatically played
+  * Volume Slider
 
 * **0.1.3**
   * Implemented a Slider for the song Position. Can be used to search in the song

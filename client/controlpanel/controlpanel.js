@@ -45,11 +45,8 @@ Template.controlpanel.events({
 	'click #skip': function() {
 		Meteor.call('skip');
 	},
-	'set': function(values) {
-		console.log(values);
-	},
-	'change': function(value) {
-		console.log(value);
+	'click #mute': function() {
+		Meteor.call('mute');
 	}
 });
 
@@ -59,7 +56,7 @@ Template.controlpanel.onCreated(function() {
 
 
 	// subscribe to the publications
-	this.currentSongSubscription = Meteor.subscribe('currentSong');
+	Meteor.subscribe('currentSong');
 	Meteor.subscribe('status');
 
 	// define client time position as a reactive var
@@ -87,8 +84,13 @@ Template.controlpanel.onCreated(function() {
 			this.playingStatus  = status.playing;
 			// reset the timer to prevent syncronisation bugs
 			this.intervalTimer = setInterval(this.updateTimer, 1000);
+			// set the volumeSlider
+			if(this.volumeSlider && status.volume){
+				this.volumeSlider.noUiSlider.set(status.volume);
+			}
 		}
 	}.bind(this));
+
 
 	// the interval function
 	// this function updates the client time position roughly every second
@@ -109,6 +111,8 @@ Template.controlpanel.onCreated(function() {
 	// the UI slider
 	this.slider;
 
+	// the slider for the volume
+	this.volumeSlider;
 	
 
 });

@@ -10,7 +10,7 @@
 		</div>
 
 		<!-- info + controlling -->
-		<div class="col s12 m12 l7" id="infocontrol">
+		<div class="col s12 m12 l6" id="infocontrol">
 			<p>{{title}}</p>
 
 			<p><button id="playpause">Play</button> <button id="skip">Skip</button></p>
@@ -18,8 +18,11 @@
 			<p><div id="timeSlider"></div></p>{{adjustSlider}}
 			
 			<p><span id="currentPos">{{currentPosition}}</span> / {{durationDisplay}}</p>
+		</div>
 
-
+		<div class="col s12 m12 l1">
+			<div id="volumeSlider"></div>
+			<button id="mute">Mute</button>
 		</div>
 
 	</div>

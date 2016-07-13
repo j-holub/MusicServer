@@ -2,10 +2,8 @@ import fs  from 'fs';
 
 // will update the current status
 mpv_statuschange = function(status) {
-
-    // this really copies the object instead of passing a reference
+    // update the player_status object
     player_status = status;
-
 }
 
 
@@ -66,7 +64,7 @@ mpv_resumed = function() {
 
 mpv_timeposition = function(time){
     timeposition = parseInt(time);
-    console.log("Time: " + time);
+    // console.log("Time: " + time);
     // somtimes the time has to be synct right now
     if(setTime){
         Status.update({}, {$set: {'currentPosition': timeposition}});
