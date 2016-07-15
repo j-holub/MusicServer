@@ -2,6 +2,7 @@
 
 * **0.1.4**
   * Songs are automatically played
+  * Playlist total duration
   * Volume Slider
 
 * **0.1.3**

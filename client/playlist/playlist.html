@@ -1,6 +1,7 @@
 
 <template name="playlist">
 	<section id="playlist">
+		<h3>Playlist [{{playlistDuration}}]</h3>
 	   {{#each listPlaylist}}
 	       <p>{{position}} : {{title}}  [{{durationDisplay}}] <button class="delete">Delete</button></p>
 	   {{/each}}
