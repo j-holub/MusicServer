@@ -1,6 +1,7 @@
 import fs from 'fs';
 import downloader from 'youtube-dl';
-import sanitize from 'sanitize-filename'
+import sanitize from 'sanitize-filename';
+import fsw from 'file-size-watcher';
 
 
 Meteor.methods({
@@ -57,10 +58,22 @@ Meteor.methods({
                 // playlistLength is the length BEFORE inserting the new song
                 // if this is the only song in the playlist, start it
                 if(playlistLength == 0){
-                	// TODO find something better for the timeout
-                  setTimeout(Meteor.bindEnvironment(function() {
+                  if(cached){
+                    // check for the filesize because when 'play' is called the early, the filesize is so small
+                    // playback stops immediatly
+                    var fileWatcher = fsw.watch(`songs/${filename}`).on('sizeChange', Meteor.bindEnvironment(function (newSize, oldSize){
+                      // when the file is bigger than 200kB play it
+                      if(newSize > 200000){
+                        Meteor.call('play');
+                        // release the file watcher
+                        fileWatcher.stop();
+                      }
+                    }));                    
+                  }
+                  // uncached case is just streaming anyway
+                  else{
                     Meteor.call('play');
-                  }), 3000);
+                  }  
                 }
             }
             else{

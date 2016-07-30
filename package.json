@@ -9,6 +9,7 @@
     "node-mpv": "^0.9.5",
     "nouislider": "^8.5.1",
     "sanitize-filename": "^1.6.0",
-    "youtube-dl": "^1.11.1"
+    "youtube-dl": "^1.11.1",
+    "file-size-watcher": "^0.2.1"
   }
 }

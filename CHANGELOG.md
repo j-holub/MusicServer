@@ -1,9 +1,12 @@
 # Changelog
 
-* **0.1.4**
+* **0.2.0**
   * Songs are automatically played
+
+* **0.1.4**
   * Playlist total duration
   * Volume Slider
+  * Meteor 1.4
 
 * **0.1.3**
   * Implemented a Slider for the song Position. Can be used to search in the song
