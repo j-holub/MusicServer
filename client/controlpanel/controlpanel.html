@@ -2,15 +2,14 @@
 <template name="controlpanel">
     <section id="controlpanel">
     {{#with currentSong}}
-	<div class="row">
 		
 		<!-- Thumbnail display -->
-		<div class="col s12 m12 l5">
+		<div id="ThumbnailDisplay">
 			<img src="{{thumbnail}}" alt="{{title}} Thumbnail" id="thumbnail">
 		</div>
 
 		<!-- info + controlling -->
-		<div class="col s12 m12 l6" id="infocontrol">
+		<div id="InfoControl">
 			<p>{{title}}</p>
 
 			<p><button id="playpause">Play</button> <button id="skip">Skip</button></p>
@@ -20,12 +19,11 @@
 			<p><span id="currentPos">{{currentPosition}}</span> / {{durationDisplay}}</p>
 		</div>
 
-		<div class="col s12 m12 l1">
+		<div id="Volume">
 			<div id="volumeSlider"></div>
 			<button id="mute">Mute</button>
 		</div>
 
-	</div>
 	{{/with}}
 
     </section>

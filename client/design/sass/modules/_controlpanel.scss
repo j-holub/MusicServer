@@ -1,23 +1,70 @@
+// ##########
+// # Layout #
+// ##########
+
+// desktop
+@media screen and (min-width: $medium-screen){
+
+	#ThumbnailDisplay{
+		flex: 0 0 35%;
+	}
+
+	#InfoControl{
+		flex: 0 0 55%;
+	}
+
+	#Volume{
+		flex: 0 0 10%;
+	}
+
+}
+
+// mobile
+@media screen and (max-width: $medium-screen){
+
+	#ThumbnailDisplay{
+		flex: 0 0 100%;
+	}
+
+	#InfoControl{
+		flex: 0 0 100%;
+	}
+
+	#Volume{
+		flex: 0 0 100%;
+	}
+
+}
+
+// ###########
+
+
+#InfoControl{
+	text-align: center;
+}
+
+#Volume{
+	text-align: center;
+}
+
 
 #controlpanel{
 	margin: 3em 0em;
 }
 
 #thumbnail{
-	width: 40%;
+	max-width: 70%;
 
-	margin-right: auto;
-	margin-left: auto;
-	
 	display: block;
+	margin: 0 auto;
 }
 
+#volumeSlider{
+	height: 10em;
 
-#infocontrol{
-
-	text-align: center;
-
+	margin: 0.5em auto;
 }
+
 
 #currentPos{
 	transition: color 0.4s ease-in-out;
@@ -27,6 +74,3 @@
 	color: #F2784B;
 }
 
-#volumeSlider{
-	height: 10em;
-}

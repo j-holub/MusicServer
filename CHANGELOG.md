@@ -1,7 +1,9 @@
 # Changelog
 
+
 * **0.2.0**
   * Songs are automatically played
+  * Changed CSS layout to Flexbox
 
 * **0.1.4**
   * Playlist total duration

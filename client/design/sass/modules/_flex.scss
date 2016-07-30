@@ -1,0 +1,27 @@
+
+section{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	flex-flow: row;
+	flex-wrap: wrap;
+
+	width: 100%;
+}
+
+// desktop
+@media screen and (min-width: $medium-screen){
+	.container{
+		width: 70%;
+		margin: 0 auto;
+	}
+}
+
+// mobile
+@media screen and (max-width: $medium-screen){
+	.container{
+		width: 90%;
+		margin: 0 auto;
+	}
+}
