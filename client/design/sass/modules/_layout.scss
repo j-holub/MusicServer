@@ -77,3 +77,72 @@ section{
 	}
 
 }
+
+// ############
+// # Playlist #
+// ############
+
+#playlist{
+	display: block;
+}
+
+
+#playlist #list{
+	display: flex;
+	flex-direction: column;
+
+	margin: 0 auto;
+
+	.song{
+		display: flex;
+		flex-direction: row;
+
+		flex-wrap: nowrap;
+		justify-content: space-between;
+
+		width: 100%;
+
+		.element.position{
+			text-align: right;
+			width: 3%;
+		}
+
+		.element.title{
+			text-align: left;
+			width: 75%;
+		}
+
+		.element.duration{
+			text-align: right;
+			width: 10%;
+		}
+
+		.element.delete{
+			text-align: left;
+			width: 3%;
+		}
+	}
+}
+
+// mobile
+@media screen and (max-width: $medium-screen){
+
+	#playlist #list{
+		width: 90%;
+	}
+}
+
+// medium sized screens
+@media screen and (min-width: $medium-screen-up) and (max-width: $large-screen){
+	#playlist #list{
+		width: 80%;
+	}
+}
+
+// desktop large
+@media screen and (min-width: $large-screen-up){
+
+	#playlist #list{
+		width: 60%;
+	}
+}
