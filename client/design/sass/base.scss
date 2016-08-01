@@ -7,8 +7,10 @@ $small-screen-up: 601px !default;
 $medium-screen-up: 993px !default;
 $large-screen-up: 1201px !default;
 
+// Layout
+@import "modules/layout";
+
+// Modules
 @import "modules/controlpanel";
 @import "modules/enqueue";
 @import "modules/playlist";
-
-@import "modules/flex";

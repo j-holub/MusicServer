@@ -1,0 +1,73 @@
+// ##########
+// # Common #
+// ##########
+
+section{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	flex-flow: row;
+	flex-wrap: wrap;
+
+	width: 100%;
+}
+
+
+// # Container #
+// Basically centers the content on desktop and makes it full width on mobile
+
+// desktop
+@media screen and (min-width: $medium-screen){
+	.container{
+		width: 70%;
+		margin: 0 auto;
+	}
+}
+
+// mobile
+@media screen and (max-width: $medium-screen){
+	.container{
+		width: 90%;
+		margin: 0 auto;
+	}
+}
+
+
+// ############### #
+// # Control Panel #
+// ############### #
+
+// desktop
+@media screen and (min-width: $medium-screen){
+
+	#ThumbnailDisplay{
+		flex: 0 0 35%;
+	}
+
+	#InfoControl{
+		flex: 0 0 55%;
+	}
+
+	#Volume{
+		flex: 0 0 10%;
+	}
+
+}
+
+// mobile
+@media screen and (max-width: $medium-screen){
+
+	#ThumbnailDisplay{
+		flex: 0 0 100%;
+	}
+
+	#InfoControl{
+		flex: 0 0 100%;
+	}
+
+	#Volume{
+		flex: 0 0 100%;
+	}
+
+}
