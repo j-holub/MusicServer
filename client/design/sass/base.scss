@@ -11,6 +11,20 @@ $small-screen-up: 601px !default;
 $medium-screen-up: 993px !default;
 $large-screen-up: 1201px !default;
 
+
+// Typography
+@font-face {
+	font-family: 'Montserrat-Light';
+	src: url('/fonts/Montserrat-Light.otf');
+}
+@font-face {
+	font-family: 'DroidSansMono';
+	src: url('/fonts/DroidSansMono.ttf');
+}
+
+$standartFont: 'Montserrat-Light';
+$numberFont: 'DroidSansMono';
+
 // Layout
 @import "modules/layout";
 
