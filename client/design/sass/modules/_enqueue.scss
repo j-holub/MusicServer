@@ -1,23 +1,73 @@
 
+$enqueueBgColor: #4B4B4C;
+$inputBackgroundColor: #F4F4F4;
+
 #enqueue{
 
-	div{
-		margin: 2em auto;
+	background-color: $enqueueBgColor;
+
+	div.container{
+		margin: 0.5em auto;
 
 		display: flex;
-
-		width: 70%;
-		
+	}
+	div.container:hover{
+		input{
+			border: 0.15em solid $highlightColorShade;
+			border-right: none;
+		}
+		button{
+			border: 0.15em solid $highlightColorShade;
+			border-left: none;
+			background-color: $highlightColorShade;
+		}
 	}
 
+	// ##########################
+	// # Inputfield for the URL #
+	// ##########################
 	input[type=text]{
 		flex: 1;
 
-		padding: 0.2em;	
+		text-align: center;
+		font-size: 0.8em;
+
+		padding: 0.7em 1em;	
+		margin-right: 0;
+
+		// reset defaults
+		appearance: none;
+		box-shadow: none;
+
+		border: 0.15em solid $inputBackgroundColor;
+		border-right: none;
+		background-color: $inputBackgroundColor;
+
+		transition: all 0.3s ease-in-out;
+	}
+	input[type=text]:focus{
+		outline: none;
+		border: 0.15em solid $highlightColor;
 	}
 
 	button{
-		padding: 0.2em;
+		padding: 0.7em 1.5em;
+		margin-left: 0;
+
+		font-size: 0.8em;
+
+		border: 0.15em solid $highlightColor;
+		border-left: none;
+
+		background-color: $highlightColor;
+		color: $inputBackgroundColor;
+
+		transition: all 0.3s ease-in-out;
+
+		cursor: pointer;
+	}
+	button:focus{
+		outline: none;
 	}
 
 }
