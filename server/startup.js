@@ -94,7 +94,7 @@ Meteor.startup(function() {
     if(Playlist.find().count() > 0){
         if(cached){
 
-            var file = Playlist.find({'position': 0}).file;
+            var file = Playlist.findOne({'position': 0}).file;
 
             // in the rare case, that the server mode was switched to cached, but the remaining
             // playlist entries are uncached, there won't be any filestring
