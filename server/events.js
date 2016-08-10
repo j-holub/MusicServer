@@ -35,6 +35,10 @@ mpv_stopped = function() {
         if(lastSong.file && fs.existsSync(lastSong.file)){
             fs.unlinkSync(lastSong.file);
         }
+
+        // delete the Thumbail
+        Thumbnails.remove(lastSong.thumbnail._id);
+
         // TODO maybe keep the old songs with a negative playlist position to allow going back
         Playlist.remove(lastSong);
         Playlist.update({}, {$inc: {'position': -1}}, {multi: true});

@@ -2,11 +2,13 @@
 <template name="controlpanel">
     <div class="container">
     <section id="controlpanel">
+    
+	{{#if Template.subscriptionsReady}}
     {{#with currentSong}}
 		
 		<!-- Thumbnail display -->
 		<div id="ThumbnailDisplay">
-			<img src="{{thumbnail}}" alt="{{title}} Thumbnail" id="thumbnail">
+			<img src="{{getThumbnail}}" alt="{{title}} Thumbnail" id="thumbnail">
 		</div>
 
 		<!-- info + controlling -->
@@ -26,6 +28,7 @@
 		</div>
 
 	{{/with}}
+	{{/if}}
 
     </section>
 	</div>

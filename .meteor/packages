@@ -23,3 +23,7 @@ aldeed:collection2
 meteorhacks:async
 fourseven:scss
 dapearce:material-icons
+cfs:standard-packages
+cfs:filesystem
+cfs:ejson-file
+cfs:graphicsmagick

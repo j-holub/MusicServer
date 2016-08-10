@@ -21,6 +21,14 @@ Template.controlpanel.helpers({
 		// return the formatted time string
 		return timeFormat(time, duration);
 	},
+	getThumbnail: function() {
+		var currentSong = Playlist.findOne({'position': 0});
+		if(Template.instance().subscriptionsReady()){
+			var thumbnail = this.thumbnail.getFileRecord();
+			// console.log(thumbnail.url());
+			return thumbnail.url({'store': 'Thumbnail'});
+		}
+	},
 	// on song change this function sets the range of the slider
 	adjustSlider: function() {
 		var currentSong = Playlist.findOne({'position': 0});
@@ -54,10 +62,11 @@ Template.controlpanel.events({
 
 Template.controlpanel.onCreated(function() {
 
+	this.subscribe('currentSong');
 
 	// subscribe to the publications
-	Meteor.subscribe('currentSong');
-	Meteor.subscribe('status');
+	this.subscribe('currentSong');
+	this.subscribe('status');
 
 	// define client time position as a reactive var
 	this.clientTimePos = new ReactiveVar(0);
@@ -91,6 +100,17 @@ Template.controlpanel.onCreated(function() {
 		}
 	}.bind(this));
 
+	// When there is no song in the queue and the first one is enqueued
+	// the getTemplate helper does not work for some reason
+	this.autorun(function() {
+		if(this.subscriptionsReady()){
+			var currentSong = Playlist.findOne({'position': 0});
+			if(currentSong && (Playlist.find().count() == 1)){
+				var thumbnail = currentSong.thumbnail.getFileRecord();
+				$('#thumbnail').attr('src', thumbnail.url());
+			}
+		}
+	}.bind(this));
 
 	// the interval function
 	// this function updates the client time position roughly every second
@@ -117,4 +137,6 @@ Template.controlpanel.onCreated(function() {
 
 });
 
-
+Template.controlpanel.onRendered(function() {
+	console.log("rendered");
+});

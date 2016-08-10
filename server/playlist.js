@@ -26,13 +26,17 @@ Meteor.methods({
        // number of titles in the playlist
        var playlistLength = Playlist.find().count();
 
+      // get the thumbnail
+      var thumbnail = Thumbnails.insert(response.result.thumbnails[0].url);
+
        // create the entry attributes
-       var playlistEntry = {
+      var playlistEntry = {
                title: response.result.title,
                url: url,
                duration: timeStringToSeconds(response.result.duration),
                position: playlistLength,
-               thumbnail: response.result.thumbnails[0].url
+               // thumbnail: thumbnail._id
+               thumbnail: thumbnail
       };
 
       // insert the song
@@ -63,7 +67,7 @@ Meteor.methods({
                     // playback stops immediatly
                     var fileWatcher = fsw.watch(`songs/${filename}`).on('sizeChange', Meteor.bindEnvironment(function (newSize, oldSize){
                       // when the file is bigger than 200kB play it
-                      if(newSize > 200000){
+                      if(newSize > 500000){
                         Meteor.call('play');
                         // release the file watcher
                         fileWatcher.stop();
@@ -97,6 +101,10 @@ Meteor.methods({
                 if(deleteCandidate.file && fs.existsSync(deleteCandidate.file)) {
                     fs.unlinkSync(deleteCandidate.file);
                 }
+
+                // delete the Thumbail
+                Thumbnails.remove(deleteCandidate.thumbnail._id);
+
                 // remove the entry from the playlist
                 Playlist.remove(deleteCandidate._id);
                 // adjust playist positions
