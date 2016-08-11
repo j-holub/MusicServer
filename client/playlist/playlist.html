@@ -6,8 +6,8 @@
 	   <div id="list">
 	   	{{#each listPlaylist}}
 	   		<div class="song">
-	   			<div class="element position">{{position}}:</div>
-	   			<div class="element title">{{title}}</div>
+	   			<div class="element position">{{position}}</div>
+	   			<div class="element title"><a href="{{url}}" target="_blank">{{title}}</a></div>
 	   			<div class="element duration">{{durationDisplay}}</div>
 	   			<div class="element delete"><span><i class="mdi mdi-playlist-remove delete"></i></span></div>
 	   		</div>

@@ -1,0 +1,24 @@
+// ########
+// # body #
+// ########
+
+body{
+	margin: 0;
+
+	font-family: $standartFont;
+}
+
+// # ##### #
+// # Links #
+// # ##### #
+
+a{
+	color: #000;
+	text-decoration: none;
+
+	transition: all 0.3s ease-in-out;
+}
+a:hover,
+a:focus{
+	text-decoration: underline;
+}

@@ -1,5 +1,8 @@
 # Changelog
 
+* **0.2.2**
+  * The song titles are now links to the song source
+
 * **0.2.1**
   * The controlpanel background is the blurred thumbnail
   * Basic Slider styling

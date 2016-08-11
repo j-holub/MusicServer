@@ -12,6 +12,9 @@ $borderColor: #4B4B4C;
 		border: none;
 	}
 
+	i{
+		transition: all 0.3s ease-in-out;
+	}
 	i.delete{
 		cursor: pointer;
 		font-size: 1.3em;
