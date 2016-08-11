@@ -100,14 +100,23 @@ Template.controlpanel.onCreated(function() {
 		}
 	}.bind(this));
 
-	// When there is no song in the queue and the first one is enqueued
-	// the getTemplate helper does not work for some reason
+	
+	// This sets the blurred background image in the controlpanel
 	this.autorun(function() {
 		if(this.subscriptionsReady()){
 			var currentSong = Playlist.findOne({'position': 0});
-			if(currentSong && (Playlist.find().count() == 1)){
+			if(currentSong ){
 				var thumbnail = currentSong.thumbnail.getFileRecord();
-				$('#thumbnail').attr('src', thumbnail.url());
+				$('#controlpanel').css('background', `url(${thumbnail.url({'store': 'ThumbnailBlurred'})})`);
+				// When there is no song in the queue and the first one is enqueued
+				// the getTemplate helper does not work for some reason
+				if((Playlist.find().count() == 1)){
+					$('#thumbnail').attr('src', thumbnail.url());
+				}
+			}
+			// Remove the Background when no song is playing
+			else{
+				$('#controlpanel').css('background', 'none');
 			}
 		}
 	}.bind(this));

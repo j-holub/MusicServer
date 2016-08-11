@@ -1,10 +1,11 @@
 
 <template name="controlpanel">
-    <div class="container">
     <section id="controlpanel">
-    
 	{{#if Template.subscriptionsReady}}
     {{#with currentSong}}
+    <div id="transparentBackground">
+    <div class="container flexWrapper">
+    
 		
 		<!-- Thumbnail display -->
 		<div id="ThumbnailDisplay">
@@ -27,9 +28,10 @@
 			<button id="mute">Mute</button>
 		</div>
 
+
+	</div>
+	</div>
 	{{/with}}
 	{{/if}}
-
     </section>
-	</div>
 </template>

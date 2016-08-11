@@ -1,5 +1,7 @@
 # Changelog
 
+* **0.2.1**
+  * The controlpanel background is the blurred thumbnail
 
 * **0.2.0**
   * Songs are automatically played
