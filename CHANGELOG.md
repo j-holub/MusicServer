@@ -3,6 +3,7 @@
 * **0.2.1**
   * The controlpanel background is the blurred thumbnail
   * Basic Slider styling
+  * Black borders in the thumbnail image are trimmed away for the backgorund
 
 * **0.2.0**
   * Songs are automatically played
