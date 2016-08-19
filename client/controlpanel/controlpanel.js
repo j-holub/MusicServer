@@ -55,6 +55,10 @@ Template.controlpanel.events({
 	},
 	'click #mute': function() {
 		Meteor.call('mute');
+	},
+
+	'click #volumeButton': function() {
+		$('#VolumeModal').addClass('active');
 	}
 });
 
@@ -84,7 +88,6 @@ Template.controlpanel.onCreated(function() {
 	// this updates the states whenever they are changed on the serverside
 	this.autorun(function() {
 		var status = Status.findOne();
-		// var currentSong = Playlist.findOne({'position': 0});
 		if(status){
 			// clear the timer to prevent races
 			clearInterval(this.intervalTimer);
@@ -93,10 +96,6 @@ Template.controlpanel.onCreated(function() {
 			this.playingStatus  = status.playing;
 			// reset the timer to prevent syncronisation bugs
 			this.intervalTimer = setInterval(this.updateTimer, 1000);
-			// set the volumeSlider
-			if(this.volumeSlider && status.volume){
-				this.volumeSlider.noUiSlider.set(status.volume);
-			}
 		}
 	}.bind(this));
 
@@ -138,14 +137,6 @@ Template.controlpanel.onCreated(function() {
 	this.intervalTimer = setInterval(this.updateTimer, 1000);
 
 	// the UI slider
-	this.slider;
+	this.slider;	
 
-	// the slider for the volume
-	this.volumeSlider;
-	
-
-});
-
-Template.controlpanel.onRendered(function() {
-	console.log("rendered");
 });

@@ -1,0 +1,36 @@
+div#VolumeModal{
+	// override modal standart
+	align-items: flex-start;
+
+
+	div.modal{
+
+		div.modalContent{
+			display: flex;
+			align-items: center;
+
+			div#volumeSlider{
+				flex: 1;
+			}
+
+			div#volumeIcon{
+				font-size: 1.5em;
+				padding-right: 0.5em;
+			}
+		}
+
+		// desktop
+		@media screen and (min-width: $medium-screen){
+			margin-top: 10em;
+			animation-name: modalFadeInVolumeDesktop;
+		}
+		
+
+	}
+}
+
+// Animations
+@keyframes modalFadeInVolumeDesktop {
+    from {margin-top: 0em; opacity: 0}
+    to {margin-top: 10em; opacity: 1}
+}

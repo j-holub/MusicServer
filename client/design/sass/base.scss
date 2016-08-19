@@ -3,6 +3,8 @@
 $highlightColor: #1CB890;
 $highlightColorShade: #78D4BC;
 
+$backgroundColor: #fff;
+
 // Breakpoints
 $small-screen: 600px !default;
 $medium-screen: 992px !default;
@@ -30,9 +32,11 @@ $numberFont: 'DroidSansMono';
 
 // General
 @import "modules/general";
+@import "modules/modal";
 
 // Modules
 @import "modules/controlpanel";
 @import "modules/enqueue";
 @import "modules/playlist";
 @import "modules/slider";
+@import "modules/volume"

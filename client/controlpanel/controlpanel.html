@@ -6,7 +6,6 @@
     <div id="transparentBackground">
     <div class="container flexWrapper">
     
-		
 		<!-- Thumbnail display -->
 		<div id="ThumbnailDisplay">
 			<img src="{{getThumbnail}}" alt="{{title}} Thumbnail" id="thumbnail">
@@ -16,18 +15,12 @@
 		<div id="InfoControl">
 			<p><a href="{{url}}" target="_blank">{{title}}</a></p>
 
-			<p><button id="playpause">Play</button> <button id="skip">Skip</button></p>
+			<p><button id="playpause">Play</button> <button id="skip">Skip</button> <button id="volumeButton">Volume</button> <button id="mute">Mute</button></p>
 
 			<p><div id="timeSlider"></div></p>{{adjustSlider}}
 			
 			<p id="timeDisplay"><span id="currentPos">{{currentPosition}}</span> / {{durationDisplay}}</p>
 		</div>
-
-		<div id="Volume">
-			<div id="volumeSlider"></div>
-			<button id="mute">Mute</button>
-		</div>
-
 
 	</div>
 	</div>
