@@ -39,6 +39,7 @@ Meteor.methods({
     volume: function(vol) {
         mpv_player.volume(parseInt(vol));
         // unmute if the volume is above 0
+        console.log("Volume: " + vol);
         if(vol > 0 && player_status.mute){
             mpv_player.mute();
         }
@@ -58,6 +59,10 @@ Meteor.methods({
     getTimePos: function() {
         Status.update({}, {$set: {'currentPosition': timeposition}});
         return timeposition;
+    },
+    getVolume: function() {
+        Status.update({}, {$set: {'volume': player_status.volume}});
+        return player_status.volume;
     },
      // updates the Status object so the current volume is pushed to all clients
     update: function() {

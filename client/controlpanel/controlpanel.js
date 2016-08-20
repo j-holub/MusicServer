@@ -66,8 +66,6 @@ Template.controlpanel.events({
 
 Template.controlpanel.onCreated(function() {
 
-	this.subscribe('currentSong');
-
 	// subscribe to the publications
 	this.subscribe('currentSong');
 	this.subscribe('status');
@@ -78,7 +76,7 @@ Template.controlpanel.onCreated(function() {
 	// keeps track of wether a song is playing or not
 	this.playingStatus;
 
-	// keeps track of wether the slider is moved at the moment
+	// keeps track of whether the slider is moved at the moment
 	this.sliding = false;
 
 	// this will update the time position server side

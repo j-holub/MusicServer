@@ -26,31 +26,17 @@ Template.volume.events({
 			$('#VolumeModal').removeClass('active');
 		}
 	},
-	'keypress': function(event) {
-		if(event.charCode == 13){
-			alert("foo");
-		}
-	}
 });
 
 
 
 Template.volume.onCreated(function() {
 
-	// the volume slider object
-	this.volumeSlider;
-
-	// whenever the volume changes on the server, this autorun
-	// will display it on the client
+	// subscribe to the Status object
 	this.autorun(function(){
-		var status = Status.findOne();
-		if(status){
-			// set the volumeSlider
-			if(this.volumeSlider && status.volume){
-				this.volumeSlider.noUiSlider.set(status.volume);
-			}
-		}
-	});
+		// subscribes this Template to the Status object
+		this.subscribe('status');
+	}.bind(this));
 
 	// The keyevent to close the VolumeModal with Escape
 	$(document).on('keyup', function(event) {
@@ -59,6 +45,21 @@ Template.volume.onCreated(function() {
 			$('#VolumeModal').removeClass('active');
 		}
 	});
+
+	// whenever the volume changes on the server, this autorun
+	// will display it on the client
+	this.autorun(function(){
+		// subscribes this Template to the Status object
+		if(this.subscriptionsReady()){
+			var status = Status.findOne();
+			if(status){
+				// set the volumeSlider only if the Template is initialized
+				if(this.initialized){
+					this.volumeSlider.noUiSlider.set(status.volume);
+				}
+			}
+		}
+	}.bind(this));
 
 });
 
@@ -71,59 +72,49 @@ Template.volume.onDestroyed(function() {
 
 
 
+// Initializes the NoUISlider for the Volume
 Template.volume.onRendered(function() {
-	this.subscribe('status');
-	// handle the volume slider
-	this.autorun(function() {
-		this.subscribe('currentSong');
 
-		if(this.subscriptionsReady()){
+	// the volume slider object
+	this.volumeSlider;
 
-			var volume = Status.findOne().volume;
-			var currentSong = Playlist.findOne({'position': 0});
+	// get the volume from the server
+	Meteor.call('getVolume', function(error, volume){
+		
+		// small Timeout because onRendered() is not sufficient enough
+		setTimeout(function() {
+			// set the slider to the respective div element
+			this.volumeSlider = $('#volumeSlider')[0];
 
-			// initialize the volume
-			setTimeout(function() {
-
-				if(currentSong){
-
-					// set the slider
-					this.volumeSlider = $('#volumeSlider')[0];
-
-					// in case the slider was already initalized destroy it
-					if(this.volumeSlider.noUiSlider){
-						this.volumeSlider.noUiSlider.destroy();
-					}
-
-					// create the slider
-					noUiSlider.create(this.volumeSlider, {
-						animate: false,
-						// orientation: 'vertical',
-						// direction: 'rtl',
-						start: volume,
-						range: {
-							'min': 0,
-							'max': 100
-						}
-					});
-
-
-					// when the value is changed the volume is applied
-					this.volumeSlider.noUiSlider.on('update', function(){
-						var newVolume = this.volumeSlider.noUiSlider.get();
-						Meteor.call('volume', parseInt(newVolume));
-					}.bind(this));
-
-					// when the slider is released really set volume
-					this.volumeSlider.noUiSlider.on('end', function() {
-						var newVolume = this.volumeSlider.noUiSlider.get();
-						Meteor.call('volume', parseInt(newVolume));
-						Meteor.call('update');
-					}.bind(this));
-
+			console.log($(this.volumeSlider));
+			// create the slider
+			noUiSlider.create(this.volumeSlider, {
+				animate: false,
+				start: volume,
+				range: {
+					'min': 0,
+					'max': 100
 				}
+			});
 
-			}.bind(this), 100);
-		}
+			// when the value is changed the volume is applied
+			this.volumeSlider.noUiSlider.on('update', _.throttle(function() {
+				var newVolume = this.volumeSlider.noUiSlider.get();
+				Meteor.call('volume', parseInt(newVolume));
+			}.bind(this), 50).bind(this));
+
+			// when the slider is released really set volume
+			this.volumeSlider.noUiSlider.on('end', function() {
+				var newVolume = this.volumeSlider.noUiSlider.get();
+				Meteor.call('volume', parseInt(newVolume));
+				Meteor.call('update');
+			}.bind(this));
+
+			// mark this Template as initialized
+			this.initialized = true;
+
+		}.bind(this), 100);
+
 	}.bind(this));
+	
 });
