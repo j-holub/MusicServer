@@ -33,6 +33,12 @@ Template.volume.events({
 
 Template.volume.onCreated(function() {
 
+	// the volume slider object
+	this.volumeSlider;
+
+	// shows if the slider is being dragged
+	this.sliding = false;
+
 	// subscribe to the Status object
 	this.autorun(function(){
 		// subscribes this Template to the Status object
@@ -55,7 +61,7 @@ Template.volume.onCreated(function() {
 			var status = Status.findOne();
 			if(status){
 				// set the volumeSlider only if the Template is initialized
-				if(this.initialized){
+				if(this.initialized && !this.sliding){
 					this.volumeSlider.noUiSlider.set(status.volume);
 				}
 			}
@@ -76,9 +82,6 @@ Template.volume.onDestroyed(function() {
 // Initializes the NoUISlider for the Volume
 Template.volume.onRendered(function() {
 
-	// the volume slider object
-	this.volumeSlider;
-
 	// get the volume from the server
 	Meteor.call('getVolume', function(error, volume){
 		
@@ -97,11 +100,19 @@ Template.volume.onRendered(function() {
 				}
 			});
 
+			this.volumeSlider.noUiSlider.on('start', function() {
+				this.sliding = true;
+			}.bind(this));
+
+			this.volumeSlider.noUiSlider.on('end', function() {
+				this.sliding = false;
+			}.bind(this));
+
 			// when slider is dragged
 			this.volumeSlider.noUiSlider.on('update', _.throttle(function() {
 				var newVolume = this.volumeSlider.noUiSlider.get();
 				// update the volume icon
-				_.throttle(updateVolumeIcon(newVolume), 200);
+				updateVolumeIcon(newVolume);
 				Meteor.call('volume', parseInt(newVolume));
 			}.bind(this), 50).bind(this));
 
