@@ -1,20 +1,21 @@
 import noUiSlider from'nouislider';
 
 Template.volume.helpers({
-	displayVolumeIcon: function () {
+	// returns the appriate class to display the volume icon
+	volumeIcon: function () {
 		var status = Status.findOne();
 		if(status){
 			if(status.volume == 0){
-				return "<i class='mdi mdi-volume-off'></i>"
+				return "mdi-volume-off'";
 			}
 			else if (status.volume < 33){
-				return "<i class='mdi mdi-volume-low'></i>"
+				return "mdi-volume-low"
 			}
 			else if(status.volume < 66){
-				return "<i class='mdi mdi-volume-medium'></i>"
+				return "mdi-volume-medium"
 			}
 			else{
-				return "<i class='mdi mdi-volume-high'></i>"
+				return "mdi-volume-high"
 			}
 		}
 	}
@@ -86,7 +87,6 @@ Template.volume.onRendered(function() {
 			// set the slider to the respective div element
 			this.volumeSlider = $('#volumeSlider')[0];
 
-			console.log($(this.volumeSlider));
 			// create the slider
 			noUiSlider.create(this.volumeSlider, {
 				animate: false,
@@ -100,6 +100,8 @@ Template.volume.onRendered(function() {
 			// when slider is dragged
 			this.volumeSlider.noUiSlider.on('update', _.throttle(function() {
 				var newVolume = this.volumeSlider.noUiSlider.get();
+				// update the volume icon
+				_.throttle(updateVolumeIcon(newVolume), 200);
 				Meteor.call('volume', parseInt(newVolume));
 			}.bind(this), 50).bind(this));
 

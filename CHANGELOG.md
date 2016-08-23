@@ -1,5 +1,8 @@
 # Changelog
 
+* **0.2.3**
+  * The Volume Slider opens inside a modal to better integrate it with both desktop and mobile UI
+
 * **0.2.2**
   * The song titles are now links to the song source
 
