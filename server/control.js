@@ -44,6 +44,18 @@ Meteor.methods({
             mpv_player.mute();
         }
     },
+    // adjusts and SETS the volume in the status object
+    // causing a reactive push to every client
+    setVolume: function(vol) {
+        mpv_player.volume(parseInt(vol));
+        // unmute if the volume is above 0
+        console.log("Volume: " + vol);
+        if(vol > 0 && player_status.mute){
+            mpv_player.mute();
+        }
+        // update the Status object
+        Status.update({}, {$set:{'volume': vol, 'currentPosition': timeposition}});
+    },
     // seek in the title
     seek: function(sec) {
         mpv_player.seek(sec);
@@ -63,9 +75,5 @@ Meteor.methods({
     getVolume: function() {
         Status.update({}, {$set: {'volume': player_status.volume}});
         return player_status.volume;
-    },
-     // updates the Status object so the current volume is pushed to all clients
-    update: function() {
-        Status.update({}, {$set:{'volume': player_status.volume, 'currentPosition': timeposition}});
-    },
+    }
 });

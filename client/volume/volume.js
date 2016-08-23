@@ -97,18 +97,19 @@ Template.volume.onRendered(function() {
 				}
 			});
 
-			// when the value is changed the volume is applied
+			// when slider is dragged
 			this.volumeSlider.noUiSlider.on('update', _.throttle(function() {
 				var newVolume = this.volumeSlider.noUiSlider.get();
 				Meteor.call('volume', parseInt(newVolume));
 			}.bind(this), 50).bind(this));
 
-			// when the slider is released really set volume
-			this.volumeSlider.noUiSlider.on('end', function() {
+			// when the slider is clicked or the drag ends
+			this.volumeSlider.noUiSlider.on('change', function() {
 				var newVolume = this.volumeSlider.noUiSlider.get();
-				Meteor.call('volume', parseInt(newVolume));
-				Meteor.call('update');
+				// hard set the volume to cause a reactive push to every client
+				Meteor.call('setVolume', parseInt(newVolume));
 			}.bind(this));
+
 
 			// mark this Template as initialized
 			this.initialized = true;
