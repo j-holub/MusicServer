@@ -15,7 +15,12 @@
 		<div id="InfoControl">
 			<p><a href="{{url}}" target="_blank">{{title}}</a></p>
 
-			<p><button id="playpause">Play</button> <button id="skip">Skip</button> <button id="volumeButton">Volume</button> <button id="mute">Mute</button></p>
+			<div id="buttonBar">
+				<i id="playpause" class="mdi {{playPauseIcon}}"></i>
+				<i id="skip" class="mdi mdi-skip-next-circle-outline mdi-rotate-45"></i>
+				<i id="volumeButton" class="mdi mdi-volume-high"></i>
+				<i id="mute" class="mdi mdi-volume-off"></i>
+			</div>
 
 			<p><div id="timeSlider"></div></p>{{adjustSlider}}
 			

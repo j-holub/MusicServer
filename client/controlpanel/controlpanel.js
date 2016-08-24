@@ -29,6 +29,16 @@ Template.controlpanel.helpers({
 			return thumbnail.url({'store': 'Thumbnail'});
 		}
 	},
+	// returns the appriate icon class for the play/pause button
+	playPauseIcon: function() {
+		var status = Status.findOne();
+		if(status.playing){
+			return "mdi-pause-circle-outline";
+		}
+		else{
+			return "mdi-play-circle-outline";
+		}
+	},
 	// on song change this function sets the range of the slider
 	adjustSlider: function() {
 		var currentSong = Playlist.findOne({'position': 0});

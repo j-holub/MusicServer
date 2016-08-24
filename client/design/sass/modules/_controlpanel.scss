@@ -25,6 +25,20 @@
 }
 
 
+#buttonBar{
+	
+	i{
+		transition: all 0.3s ease-in-out;
+	}
+	i:before{
+		font-size: 3em;
+	}
+	i:hover{
+		color: $highlightColor;
+	}
+}
+
+
 
 #currentPos{
 	transition: color 0.4s ease-in-out;
