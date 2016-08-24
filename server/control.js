@@ -89,13 +89,5 @@ Meteor.methods({
         mpv_player.goToPosition(sec);
         // this will set the correct time on the next timeposition event
         setTime = true;
-    },
-    getTimePos: function() {
-        Status.update({}, {$set: {'currentPosition': timeposition}});
-        return timeposition;
-    },
-    getVolume: function() {
-        Status.update({}, {$set: {'volume': player_status.volume}});
-        return player_status.volume;
     }
 });

@@ -56,19 +56,6 @@ Template.controlpanel.helpers({
 				return "mdi-volume-high"
 			}
 		}
-	},
-	// on song change this function sets the range of the slider
-	adjustSlider: function() {
-		var currentSong = Playlist.findOne({'position': 0});
-
-		if(Template.instance().slider && currentSong){
-			Template.instance().slider.noUiSlider.updateOptions({
-				range: {
-					'min': 0,
-					'max': currentSong.duration
-				}
-			});
-		}
 	}
 });
 
@@ -92,8 +79,10 @@ Template.controlpanel.events({
 Template.controlpanel.onCreated(function() {
 
 	// subscribe to the publications
-	this.subscribe('currentSong');
-	this.subscribe('status');
+	this.autorun(function() {
+		this.subscribe('currentSong');
+		this.subscribe('status');
+	}.bind(this));
 
 	// define client time position as a reactive var
 	this.clientTimePos = new ReactiveVar(0);
