@@ -16,12 +16,12 @@
 			<p id="currentSongTitle"><a href="{{url}}" target="_blank">{{title}}</a></p>
 
 			<div id="buttonBar">
-				<i id="playpause" class="mdi {{playPauseIcon}}"></i>
-				<i id="skip" class="mdi mdi-skip-next-circle-outline mdi-rotate-45"></i>
 				<i id="volumeButton" class="mdi {{volumeIcon}}"></i>
+				<i id="playpause" class="mdi {{playPauseIcon}}"></i>
+				<i id="skip" class="mdi mdi-skip-next-circle-outline"></i>
 			</div>
 
-			<p><div id="timeSlider"></div></p>{{adjustSlider}}
+			<div id="timeSlider"></div>{{adjustSlider}}
 			
 			<p id="timeDisplay"><span id="currentPos">{{currentPosition}}</span> / {{durationDisplay}}</p>
 		</div>

@@ -3,10 +3,6 @@
 	text-align: center;
 }
 
-#Volume{
-	text-align: center;
-}
-
 
 #controlpanel{
 	background-size: 100% 100% !important;
@@ -25,26 +21,38 @@
 }
 
 #currentSongTitle{
+	margin: 0;
 	font-size: 1.7em;
 }
 
 #buttonBar{
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	padding: 1.2em 0;
 	
 	i{
+		padding: 0 0.3em;
 		transition: all 0.3s ease-in-out;
 	}
 	i:before{
-		font-size: 3em;
+		font-size: 4em;
 	}
 	i:hover{
 		color: $highlightColor;
+	}
+
+	i#playpause:before{
+		font-size: 5.5em;
 	}
 }
 
 
 
 #currentPos{
-	transition: color 0.4s ease-in-out;
+	transition: color 0.3s ease-in-out;
 }
 
 #timeDisplay{
@@ -54,4 +62,19 @@
 .change{
 	color: #F2784B;
 }
+
+// mobile
+@media screen and (max-width: $medium-screen){
+	
+	#InfoControl{
+		padding: 1.5em 0;
+	}
+
+	#transparentBackground{
+		padding-top: 2em;
+		padding-bottom: 0;
+	}
+
+}
+	
 
