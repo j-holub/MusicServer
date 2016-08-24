@@ -5,6 +5,7 @@
   * Changed controlpanel buttons to icons
   * Play/Pause Button reflects state in the UI
   * Mute is now reflected in the UI
+  * Various design changes
 
 * **0.2.3**
   * The Volume Slider opens inside a modal to better integrate it with both desktop and mobile UI

@@ -23,6 +23,7 @@ Template.controlpanel.onRendered(function() {
 				// create the noUiSlider for the song position
 				noUiSlider.create(this.slider, {
 					animate: false,
+					connect: 'upper',
 					start: this.clientTimePos.get(),
 					range: {	
 						'min': 0,

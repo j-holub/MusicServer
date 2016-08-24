@@ -55,6 +55,12 @@
 	transition: color 0.3s ease-in-out;
 }
 
+#timeSlider{
+	.noUi-connect{
+		background: $textColor;
+	}
+}
+
 #timeDisplay{
 	font-family: 'DroidSansMono';
 	font-size: 1.3em;
