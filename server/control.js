@@ -25,8 +25,20 @@ Meteor.methods({
         mpv_player.togglePause();
     },
     // toggles mute
-    mute: function() {
-        console.log("mute");
+    mute: function() {        
+        // if the player was muted, set it to the old volume
+        if(player_status.mute){
+            Status.update({}, {$set: {'volume': volume_before_mute}});  
+            mpv_player.volume(volume_before_mute);
+        }
+        else{
+            console.log(player_status.volume);
+            // safe the old volume
+            volume_before_mute = player_status.volume;
+            // set the volume to 0 (for UI purposes)
+            Status.update({}, {$set: {'volume': 0}});       
+        }
+        // just for the convience of the mpv status object
         mpv_player.mute();
     },
     // skip
@@ -35,7 +47,8 @@ Meteor.methods({
         // this will trigget the 'stopped' event which starts the next song
         mpv_player.stop();
     },
-    // adjust the volume
+    // adjusts the volume but does NOT set in in the Status object
+    // this function is called when the volume Slider is only dragged, but not released
     volume: function(vol) {
         mpv_player.volume(parseInt(vol));
         // unmute if the volume is above 0
@@ -51,6 +64,15 @@ Meteor.methods({
         // unmute if the volume is above 0
         console.log("Volume: " + vol);
         if(vol > 0 && player_status.mute){
+            mpv_player.mute();
+        }
+        // volume is 0
+        // this is similar to mute. Safe the old volume to be able to restore it
+        // when clicking on the button in the UI
+        else{
+            volume_before_mute = Status.findOne().volume;
+            // mark the player as muted
+            // maybe change Node-MPV behaviour to a toggleMute, mute and umute function
             mpv_player.mute();
         }
         // update the Status object

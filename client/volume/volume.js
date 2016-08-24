@@ -6,7 +6,7 @@ Template.volume.helpers({
 		var status = Status.findOne();
 		if(status){
 			if(status.volume == 0){
-				return "mdi-volume-off'";
+				return "mdi-volume-off";
 			}
 			else if (status.volume < 33){
 				return "mdi-volume-low"
@@ -27,6 +27,10 @@ Template.volume.events({
 			$('#VolumeModal').removeClass('active');
 		}
 	},
+	// mutes
+	'click #volumeIcon': function(event) {
+		Meteor.call('mute');
+	}
 });
 
 

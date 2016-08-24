@@ -39,6 +39,24 @@ Template.controlpanel.helpers({
 			return "mdi-play-circle-outline";
 		}
 	},
+	// returns the appriate class to display the volume icon
+	volumeIcon: function () {
+		var status = Status.findOne();
+		if(status){
+			if(status.volume == 0){
+				return "mdi-volume-off";
+			}
+			else if (status.volume < 33){
+				return "mdi-volume-low"
+			}
+			else if(status.volume < 66){
+				return "mdi-volume-medium"
+			}
+			else{
+				return "mdi-volume-high"
+			}
+		}
+	},
 	// on song change this function sets the range of the slider
 	adjustSlider: function() {
 		var currentSong = Playlist.findOne({'position': 0});
@@ -63,10 +81,7 @@ Template.controlpanel.events({
 	'click #skip': function() {
 		Meteor.call('skip');
 	},
-	'click #mute': function() {
-		Meteor.call('mute');
-	},
-
+	// opens the Volume Modal
 	'click #volumeButton': function() {
 		$('#VolumeModal').addClass('active');
 	}
