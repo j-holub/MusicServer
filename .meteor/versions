@@ -36,7 +36,6 @@ cfs:tempstore@0.1.5
 cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.2.3
-dapearce:material-icons@0.1.5
 ddp@1.2.5
 ddp-client@1.2.9
 ddp-common@1.2.6
