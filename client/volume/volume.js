@@ -98,6 +98,7 @@ Template.volume.onRendered(function() {
 			noUiSlider.create(this.volumeSlider, {
 				animate: false,
 				start: volume,
+				connect: 'upper',
 				range: {
 					'min': 0,
 					'max': 100
