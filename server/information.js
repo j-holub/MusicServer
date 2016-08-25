@@ -1,3 +1,5 @@
+import cu from 'colour-utilities'
+
 Meteor.methods({
 	getTimePos: function() {
         Status.update({}, {$set: {'currentPosition': timeposition}});
@@ -15,8 +17,6 @@ Meteor.methods({
         var song = Playlist.findOne(songId);
         var thumbnailFile = song.thumbnail.getFileRecord({'store': 'Thumbnail'});
 
-        var colorHex;
-
         // compute the dominant color
         var response = Async.runSync(function(done) {
              gm(thumbnailFile.createReadStream())
@@ -27,12 +27,18 @@ Meteor.methods({
             .toBuffer('RGB', function (error, buffer) {
                 // the dominant color
                 colorHex = buffer.toString('hex', 3, 6);
-                console.log("#" + colorHex);
                 done(null, colorHex);
             });
         })
 
-        // the dominant color
-        return response.result;
+        var colorHex = response.result;
+        var colorShadeHex = cu.alterShade(colorHex, 0.1);
+
+
+        // the dominant color and its shade
+        return {
+            'color': '#' + colorHex,
+            'shade': colorShadeHex // already has the # attached
+        }
     }
 });
