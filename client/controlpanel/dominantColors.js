@@ -7,65 +7,72 @@ Template.controlpanel.onRendered(function() {
 		var currentSong = Playlist.findOne({'position': 0});
 
 		if(currentSong){
-			Meteor.call('dominantColors', currentSong._id, function (error, result) {
 
-				// Timeout to make sure, that the sliders are initialized
-				setTimeout(function() {
+			// Timeout to give the Thumbnail some time to be downloaded
+			// Basically important on the first song entered
+			// This should be changed in the future
+			setTimeout(function() {
 
-					// Control Panel Buttons
-					$('.cpIcon').hover(function() {
-						$(this).css({'color': result.color});
-					}, function() {
-						$(this).css({'color': '#292f33'});
-					});
+				Meteor.call('dominantColors', currentSong._id, function (error, result) {
 
-					// Slider
-					// background
-					$('.noUi-background').css({
-						'background-color': result.color
-					});
+					if(result != null && !error){
 
-					// handle knob
-					$('.noUi-handle').css({
-						'background-color': result.color,
-						'border-color': result.color
-					});
-					$('.noUi-handle').hover(function() {
-						$(this).css({
-							'background-color': result.shade,
-							'border-color': result.shade
+						// Control Panel Buttons
+						$('.cpIcon').hover(function() {
+							$(this).css({'color': result.color});
+						}, function() {
+							$(this).css({'color': '#292f33'});
 						});
-					}, function() {
-						$(this).css({
+
+						// Slider
+						// background
+						$('.noUi-background').css({
+							'background-color': result.color
+						});
+
+						// handle knob
+						$('.noUi-handle').css({
 							'background-color': result.color,
 							'border-color': result.color
 						});
-					});
-
-
-					// Modals
-					$('.modalHeader').css({
-						'border-color': result.color
-					});
-
-					
-					// Enqueue Bar
-					$('#enqueueButton').css({
-						'background-color': result.color
-					});
-					$('#enqueueButton').hover(function() {
-						$(this).css({
-							'background-color': result.shade
+						$('.noUi-handle').hover(function() {
+							$(this).css({
+								'background-color': result.shade,
+								'border-color': result.shade
+							});
+						}, function() {
+							$(this).css({
+								'background-color': result.color,
+								'border-color': result.color
+							});
 						});
-					}, function() {
-						$(this).css({
+
+
+						// Modals
+						$('.modalHeader').css({
+							'border-color': result.color
+						});
+
+						
+						// Enqueue Bar
+						$('#enqueueButton').css({
 							'background-color': result.color
 						});
-					});
-		
+						$('#enqueueButton').hover(function() {
+							$(this).css({
+								'background-color': result.shade
+							});
+						}, function() {
+							$(this).css({
+								'background-color': result.color
+							});
+						});
 
-				}, 50);
-			});
+					}
+		
+				});
+
+			}, 150);
 		}
 	});
 

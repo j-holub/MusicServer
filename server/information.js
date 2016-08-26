@@ -23,22 +23,36 @@ Meteor.methods({
             .resize(250, 250)
             .fuzz('10%')
             .trim() // remove black borders
-            .colors(2) // get the two most dominant colors
+            .colors(1) // get the two most dominant colors
             .toBuffer('RGB', function (error, buffer) {
-                // the dominant color
-                colorHex = buffer.toString('hex', 3, 6);
-                done(null, colorHex);
+                if(!error){
+                    // the dominant color
+                    colorHex = buffer.toString('hex', 0, 3);
+                    done(null, '#' + colorHex);
+                }
+                else{
+                    // happens when the Thumbnail is not yet downloaded
+                    if(error.message === "Stream yields empty buffer"){
+                        done(null, null);
+                    }
+                }
             });
         })
 
-        var colorHex = response.result;
-        var colorShadeHex = cu.alterShade(colorHex, 0.1);
+        if(response.result != null){
+            var colorHex = response.result;
+            var colorShadeHex = cu.alterShade(colorHex, 0.2);
 
 
-        // the dominant color and its shade
-        return {
-            'color': '#' + colorHex,
-            'shade': colorShadeHex // already has the # attached
+            // the dominant color and its shade
+            return {
+                'color': colorHex,
+                'shade': colorShadeHex
+            }
         }
+        else{
+            return null;
+        }
+
     }
 });
