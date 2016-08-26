@@ -80,12 +80,21 @@ Meteor.methods({
     },
     // seek in the title
     seek: function(sec) {
+        // when the player was paused and the song seeked, unpause
+        if(player_status.pause){
+            mpv_player.resume();
+        }
         mpv_player.seek(sec);
         // this will set the correct time on the next timeposition event
         setTime = true;
     },
     // jumps to the specified position in the title
     jumpTo: function(sec) {
+        // when the player was paused and the song is jumped to a different positon
+        // unpause
+        if(player_status.pause){
+            mpv_player.resume();
+        }
         mpv_player.goToPosition(sec);
         // this will set the correct time on the next timeposition event
         setTime = true;
