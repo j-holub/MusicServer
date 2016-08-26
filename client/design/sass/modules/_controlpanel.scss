@@ -36,6 +36,9 @@
 	i{
 		padding: 0 0.3em;
 		transition: all 0.3s ease-in-out;
+
+		// without this the icons are not clickable on iOS devices
+		cursor: pointer;
 	}
 	i:before{
 		font-size: 4em;
