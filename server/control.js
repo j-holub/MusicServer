@@ -44,6 +44,10 @@ Meteor.methods({
     // skip
     skip: function() {
         console.log("skip");
+        // if the player was previously paused, unpause
+        if(player_status.pause){
+            mpv_player.resume();
+        }
         // this will trigget the 'stopped' event which starts the next song
         mpv_player.stop();
     },
