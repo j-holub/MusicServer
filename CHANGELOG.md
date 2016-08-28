@@ -3,6 +3,7 @@
 * **0.2.5**
   * The dominant color from the thumbnail is extraced and applied as the UI's highlight color
   * Fixed the bug that the control icons were not clickable on iOS devices
+  * Sticky enqueue bar
 
 * **0.2.4**
   * MaterialIcons downloaded manually in favour of the outdated Meteor package
