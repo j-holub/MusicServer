@@ -85,6 +85,18 @@
 		padding-bottom: 0;
 	}
 
+	#currentSongTitle{
+		font-size: 1.4em;
+	}
+
+	#buttonBar{
+		i:before{
+			font-size: 3.5em;
+		}
+		i#playpause:before{
+			font-size: 5em;
+		}
+	}
 }
 	
 
