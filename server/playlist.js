@@ -107,6 +107,7 @@ Meteor.methods({
 
                 // remove the entry from the playlist
                 Playlist.remove(deleteCandidate._id);
+
                 // adjust playist positions
                 Playlist.update({
                     'position': {$gte: pos}
@@ -115,7 +116,7 @@ Meteor.methods({
                     $inc: {'position': -1}
                 },
                 {
-                    $multi: true
+                    'multi': true
                 });
 
                 return true;
