@@ -14,15 +14,18 @@
 }
 
 #thumbnail{
-	max-width: 80%;
+	max-width: 90%;
 
 	display: block;
 	margin: 0 auto;
 }
 
 #currentSongTitle{
-	margin: 0;
 	font-size: 1.7em;
+	text-align: center;
+
+	margin: 0 auto;
+	max-width: 95%;
 }
 
 #buttonBar{

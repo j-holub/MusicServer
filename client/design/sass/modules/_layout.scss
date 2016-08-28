@@ -43,16 +43,13 @@
 
 	#ThumbnailDisplay{
 		flex: 0 0 35%;
+		margin: 0 0.5em;
 	}
 
 	#InfoControl{
-		flex: 0 0 65%;
+		flex: 0 0 60%;
+		margin: 0 0.5em;
 	}
-
-	#Volume{
-		flex: 0 0 10%;
-	}
-
 }
 
 // mobile
@@ -65,11 +62,6 @@
 	#InfoControl{
 		flex: 0 0 100%;
 	}
-
-	#Volume{
-		flex: 0 0 100%;
-	}
-
 }
 
 // ############
