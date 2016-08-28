@@ -95,28 +95,28 @@
 		justify-content: space-between;
 		align-items: flex-start;
 
-		width: 95%;
+		width: 100%;
+
+		.element{
+			margin: 0 0.5em;
+		}
 
 		.element.position{
 			text-align: right;
-			width: 3%;
 		}
 
 		.element.title{
 			text-align: left;
-			width: 75%;
-			text-align: justify;
 		}
 
 		.element.duration{
 			text-align: right;
-			width: 20%;
 		}
 
 		.element.delete{
 			text-align: left;
-			width: 3%;
 		}
+
 	}
 }
 
@@ -126,7 +126,43 @@
 	#playlist #list{
 		width: 90%;
 	}
+
+	.element.position{
+		width: 8%;
+	}
+
+	.element.title{
+		width: 60%;
+	}
+
+	.element.duration{
+		width: 20%;
+	}
+
+	.element.delete{
+		width: 10%;
+	}
 }
+
+// medium sited screens and larger
+@media screen and(min-width: $medium-screen-up){
+	.element.position{
+		width: 3%;
+	}
+
+	.element.title{
+		width: 75%;
+	}
+
+	.element.duration{
+		width: 10%;
+	}
+
+	.element.delete{
+		width: 3%;
+	}
+}
+
 
 // medium sized screens
 @media screen and (min-width: $medium-screen-up) and (max-width: $large-screen){
