@@ -20,11 +20,15 @@ Template.playlist.helpers({
 
 Template.playlist.events({
 	'click .delete': function (event) {
+    // without this the event is triggered twice for some reason
+    event.stopPropagation();
 		Meteor.call('delete', this.position);
 	}
 });
 
 
 Template.playlist.onCreated(function() {
-	Meteor.subscribe('playlist');
+  this.autorun(function() {
+	   this.subscribe('playlist');   
+  }.bind(this));
 });
