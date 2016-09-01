@@ -36,6 +36,9 @@ $inputBackgroundColor: #F4F4F4;
 		outline: none;
 		border: none;
 	}
+	input[type=text]:disabled{
+		background-color: #C4C4C4;
+	}
 
 	button{
 		padding: 0.8em 1.5em;

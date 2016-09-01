@@ -38,6 +38,15 @@ Template.enqueue.helpers({
 		// states whether the user is just enqueuing a song and waiting for it
 		// to appear in the playlist
 		return Session.get('enqueuing');
+	},
+	// disables the enqueue input when enqueuing
+	disabled: function() {
+		if(Session.get('enqueuing')){
+			return "disabled";
+		} 
+		else{
+			return "";
+		}
 	}
 });
 
