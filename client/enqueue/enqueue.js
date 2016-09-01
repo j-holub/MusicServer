@@ -3,7 +3,10 @@
 var addSong = function() {
 	// get the url
 	var url = $('#enqueueInput').val();
-	if(!(url === "")){	
+	if(!(url === "")){
+		// set enqueuing to true
+		Session.set('enqueuing', true);
+
 		Meteor.call('enqueue', url, function(error, result) {
 			if(!error){
 				if(result){
@@ -22,10 +25,21 @@ var addSong = function() {
 					alert("Not a valid URL");
 				}				
 			}
+
+			// when the enqueue method has returned, set the flag to false
+			Session.set('enqueuing', false);
 		});
 		
 	}
 }
+
+Template.enqueue.helpers({
+	enqueuing: function () {
+		// states whether the user is just enqueuing a song and waiting for it
+		// to appear in the playlist
+		return Session.get('enqueuing');
+	}
+});
 
 
 Template.enqueue.events({
@@ -42,4 +56,8 @@ Template.enqueue.events({
 			$('#enqueueInput').blur();
 		}
 	}
+});
+
+Template.enqueue.onCreated(function() {
+	Session.set('enqueuing', false);
 });

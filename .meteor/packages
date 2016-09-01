@@ -26,3 +26,4 @@ cfs:standard-packages
 cfs:filesystem
 cfs:ejson-file
 cfs:graphicsmagick
+session
