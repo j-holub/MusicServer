@@ -20,8 +20,8 @@ $inputBackgroundColor: #F4F4F4;
 
 		font-size: 0.8em;
 
-		padding: 0.8em 1em;
-		margin-right: 0;
+		padding: 0.6em 1em;
+		margin: 0;
 
 		// reset defaults
 		appearance: none;
@@ -40,13 +40,11 @@ $inputBackgroundColor: #F4F4F4;
 		background-color: #C4C4C4;
 	}
 
-	button{
-		padding: 0.8em 1.5em;
-		margin-left: 0;
+	div#enqueueButton{
+		padding: 0.6em 1.3em;
+		margin: 0;
 
 		font-size: 0.8em;
-
-		border: none;
 
 		background-color: $highlightColor;
 		color: $inputBackgroundColor;
@@ -55,10 +53,10 @@ $inputBackgroundColor: #F4F4F4;
 
 		cursor: pointer;
 	}
-	button:hover{
+	div#enqueueButton:hover{
 		background-color: $highlightColorShade;
 	}
-	button:focus{
+	div#enqueueButton:focus{
 		outline: none;
 	}
 
