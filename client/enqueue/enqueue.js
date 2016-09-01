@@ -6,10 +6,15 @@ var addSong = function() {
 	if(!(url === "")){	
 		Meteor.call('enqueue', url, function(error, result) {
 			if(!error){
-				// set the input field to empty
-				$('#enqueueInput').val("");
-				// leave the focus
-				$('#enqueueInput').blur();
+				if(result){
+					// set the input field to empty
+					$('#enqueueInput').val("");
+					// leave the focus
+					$('#enqueueInput').blur();
+				}
+				else{
+					alert("A Problem Occured");
+				}
 			}
 			// if there was an error handle it
 			else{

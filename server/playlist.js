@@ -2,21 +2,24 @@ import fs from 'fs';
 import downloader from 'youtube-dl';
 import sanitize from 'sanitize-filename';
 import fsw from 'file-size-watcher';
+import Future from 'fibers/future'
 
 
 Meteor.methods({
     // enqueues a song to the playlist
    'enqueue': function(url){
 
-        // DEBUG
-       console.log("enqueue url " + url);
+      // make this method unblocking
+      this.unblock();
+
+      // future to wait for the asynchronous stuff to finish
+      var future = new Future();
 
       downloader.getInfo(url, Meteor.bindEnvironment(function(error, info){
         
        // check wether youtube-dl was able to handle the url
         if(!info){
-          // TODO new way of error handling
-          // throw new Meteor.Error('url_invalid', 'url was not valid');
+          future.throw(new Meteor.Error('url_invalid', 'url was not valid'));
         }
         // everything went fine
         else{
@@ -75,15 +78,22 @@ Meteor.methods({
                         Meteor.call('play');
                       }  
                     }
+
+                    future.return(true);
                 }
                 else{
                     console.log("Error in enqueue: " + error.message);
+                    future.return(false);
                 }
+
+                future.return(true);
           });
         
         }
 
       }));
+
+      return future.wait();
 
    },
     // deletes an entry in the playlist
