@@ -2,6 +2,7 @@
 
 * **0.2.6**
   * Enqueuing does not block the UI anymore
+  * Enqueuing has a visible feedback (input field darkened + loading spinner)
 
 * **0.2.5**
   * The dominant color from the thumbnail is extraced and applied as the UI's highlight color

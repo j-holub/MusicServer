@@ -1,10 +1,14 @@
-
 <template name="enqueue">
 	<section id="enqueue" class="flexWrapper">
 		<div class="container">
 		<input type="text" id="enqueueInput" {{disabled}}/>
-		<!-- <button id="enqueueButton"><i class="mdi mdi-playlist-plus"></i></button> -->
-		<div id="enqueueButton"><i class="mdi mdi-playlist-plus"></i></div>
+		<div id="enqueueButton">
+			{{#if enqueuing}}
+			<div class="spinner"></div>
+			{{else}}
+			<i class="mdi mdi-playlist-plus"></i>
+			{{/if}}
+		</div>
 		</div>
 	</section>
 </template>

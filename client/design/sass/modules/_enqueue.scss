@@ -41,7 +41,7 @@ $inputBackgroundColor: #F4F4F4;
 	}
 
 	div#enqueueButton{
-		padding: 0.6em 1.3em;
+		padding: 0.6em 1.2em;
 		margin: 0;
 
 		font-size: 0.8em;
@@ -52,6 +52,15 @@ $inputBackgroundColor: #F4F4F4;
 		transition: all 0.3s ease-in-out;
 
 		cursor: pointer;
+
+		// centers the spinner
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		width: 1.8em;
+		height: 1.8em;
+
 	}
 	div#enqueueButton:hover{
 		background-color: $highlightColorShade;
