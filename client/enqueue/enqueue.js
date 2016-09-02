@@ -53,11 +53,13 @@ Template.enqueue.helpers({
 
 Template.enqueue.events({
 	'click #enqueueButton': function (event) {
-		addSong();
+		if(!Session.get('enqueuing')){
+			addSong();
+		}
 	},
 	'keypress #enqueueInput': function (event) {
 		// Enter / Return
-		if(event.charCode == 13){
+		if(event.charCode == 13 && !Session.get('enqueuing')){
 			addSong();
 		}
 		// Escape
