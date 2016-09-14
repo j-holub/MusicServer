@@ -132,6 +132,21 @@ Template.controlpanel.onCreated(function() {
 		}
 	}.bind(this));
 
+
+	// sets the tab title to the current song title
+	this.autorun(function() {
+		if(this.subscriptionsReady()){
+			var currentSong = Playlist.findOne({'position': 0});
+			if(currentSong){
+				$(document).prop('title', `${currentSong.title} | MusicServer`);
+			}
+			else{
+				$(document).prop('title', 'MusicServer');	
+			}
+		}
+	}.bind(this));
+
+
 	// the interval function
 	// this function updates the client time position roughly every second
 	this.updateTimer = function( ){
