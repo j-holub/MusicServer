@@ -2,6 +2,8 @@
 .noUi-background{
 	background: $highlightColor;
 	box-shadow: none;
+
+	cursor: pointer;
 }
 
 .noUi-target{
@@ -34,6 +36,8 @@
 
 	top: -0.4em !important;
 	left: -0.4em !important;
+
+	cursor: pointer;
 }
 .noUi-handle:hover{
 	border: 1px solid $highlightColorShade;

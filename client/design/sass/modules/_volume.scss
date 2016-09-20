@@ -13,7 +13,9 @@ div#VolumeModal{
 				flex: 1;
 			}
 
-			div#volumeIcon{			
+			div#volumeIcon{		
+				cursor: pointer;
+
 				padding-right: 0.5em;
 				i:before{
 					font-size: 2em;	
