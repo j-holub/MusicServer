@@ -20,6 +20,9 @@ div.modalBackground{
 
 	transition: all 0.3s ease-in-out;
 
+	// makes it clickable in Safari on iOS devices
+	cursor: pointer;
+
 }
 div.modalBackground.active{
 	// desktop
@@ -37,9 +40,9 @@ div.modalBackground.active{
 // The Modal itself
 div.modal{
 	background-color: $backgroundColor;
-	
+
 	position: relative;
-	
+
 	animation-duration: 0.4s;
 
 	transition: all 0.3s ease-in-out;
@@ -59,6 +62,9 @@ div.modal{
 		left: 0;
 		bottom: 0;
 	}
+
+	// reset pointer from modalBackground
+	cursor: default;
 }
 
 // Modal Header
