@@ -1,0 +1,21 @@
+<template name="options">
+
+<div id="OptionsModal" class="modalBackground">
+	<div class="modal">
+		<div class="modalHeader">Options</div>
+		<div class="modalContent">
+			<table id="OptionsTable">
+				<tr>
+					<td>Download</td>
+					<td><input type="checkbox" class="downloadToggle" {{downloadState}}></td>
+				</tr>
+				<tr>
+					<td>Image Processing</td>
+					<td><input type="checkbox" class="imageProcessingToggle" {{imageProcessingState}}></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+</template>
