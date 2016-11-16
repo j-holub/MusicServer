@@ -6,6 +6,9 @@ $highlightColorShade: #78D4BC;
 $backgroundColor: #fff;
 $textColor: #292f33;
 
+$grey: #727884;
+$greyShade: #a5abb7;
+
 // Breakpoints
 $small-screen: 600px !default;
 $medium-screen: 992px !default;
@@ -23,6 +26,12 @@ $large-screen-up: 1201px !default;
 @font-face {
 	font-family: 'DroidSansMono';
 	src: url('/fonts/DroidSansMono.ttf');
+}
+
+// Icons
+@font-face {
+	font-family: 'MaterialDesignIcons';
+	src: url('/fonts/materialdesignicons-webfont.ttf');
 }
 
 $standartFont: 'Montserrat-Light';
