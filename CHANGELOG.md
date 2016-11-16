@@ -1,4 +1,7 @@
 # Changelog
+* **0.3.0**
+  * New Top Bar
+  * Settings to switch between **download / stream** and to switch image precessing off
 
 * **0.2.6**
   * Enqueuing does not block the UI anymore

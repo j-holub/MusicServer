@@ -5,8 +5,10 @@ Template.controlpanel.onRendered(function() {
 	// will get the dominant color for the current song
 	this.autorun(function() {
 		var currentSong = Playlist.findOne({'position': 0});
+		var options     = Options.findOne();
 
-		if(currentSong){
+		// only check for dominat colors if image processing is enabled
+		if(currentSong && options.imageProcessing){
 
 			// Timeout to give the Thumbnail some time to be downloaded
 			// Basically important on the first song entered

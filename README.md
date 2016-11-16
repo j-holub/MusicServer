@@ -84,7 +84,7 @@ To fully deploy a meteor app on your server a nice tutorial can be found [here](
 
 ### ARM Boards
 
-This application was originally intented to run on ARM Boards like the **Raspberry Pi**. The image processing happening in the background was too heavy for a Raspberry Pi 1 Model B though. I plan on adding a config, where one can disable the image processing to take some load away.
+This application was originally intented to run on ARM Boards like the **Raspberry Pi**. The image processing happening in the background was too heavy for a Raspberry Pi 1 Model B though. The image process can be switched off in the player's UI.
 
 I have not yet tested it on stronger ARM boards, such as the **Raspberry Pi 3** or **Odroid**.
 
@@ -116,7 +116,7 @@ A big thanks goes to all the great software that this project relies on
 There are several plans in my head for future features
 
   * Easy deployment. Possibly through Docker images
-  * Settings, to control various things and to switch off the image processing for slower ARM boards
+  * ~~Settings, to control various things and to switch off the image processing for slower ARM boards~~
   * REST API
   * Playing local files from the server
   * Uploading files from your device
