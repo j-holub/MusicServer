@@ -8,7 +8,7 @@ Template.controlpanel.onRendered(function() {
 		var options     = Options.findOne();
 
 		// only check for dominat colors if image processing is enabled
-		if(currentSong && options.imageProcessing){
+		if(currentSong && options && options.imageProcessing){
 
 			// Timeout to give the Thumbnail some time to be downloaded
 			// Basically important on the first song entered
