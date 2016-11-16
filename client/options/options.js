@@ -22,11 +22,11 @@ Template.options.events({
 
 	// options
 	// download
-	'change .downloadToggle': function (event) {
+	'change #DownloadToggle': function (event) {
 		Meteor.call('toggleDownloadOption');
 	},
 	// image processing
-	'change .imageProcessingToggle': function (event) {
+	'change #ImageProcessingToggle': function (event) {
 		Meteor.call('toggleImageProcessingOption');
 	}
 })
