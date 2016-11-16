@@ -1,0 +1,22 @@
+#OptionsModal{
+	@media screen and (min-width: $medium-screen){
+		.modal{
+			width: auto;
+		}
+	}
+}
+
+#OptionsTable{
+	width: 100%;
+	font-size: 1.3em;
+
+	td{
+		padding: 0.2em 0.3em;
+	}
+
+	// right side
+	td:nth-of-type(2){
+		text-align: right;
+	}
+
+}
