@@ -18,6 +18,10 @@ div#TopBar{
 	div#Menu{
 		text-align: right;
 		padding-right: 1em;
+
+		i{
+			cursor: pointer;
+		}
 	}
 
 }
