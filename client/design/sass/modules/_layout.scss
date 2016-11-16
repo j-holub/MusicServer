@@ -33,6 +33,27 @@
 	}
 }
 
+// ######### #
+// # Top Bar #
+// ######### #
+
+div#TopBar{
+
+	// flex layout
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	div#Logo{
+		flex: 1;
+	}
+
+	div#Menu{
+		flex: 1;
+	}
+
+}
 
 // ############### #
 // # Control Panel #

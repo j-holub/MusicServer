@@ -53,7 +53,7 @@ Template.controlpanel.onRendered(function() {
 							'border-color': result.color
 						});
 
-						
+
 						// Enqueue Bar
 						$('#enqueueButton').css({
 							'background-color': result.color
@@ -68,8 +68,12 @@ Template.controlpanel.onRendered(function() {
 							});
 						});
 
+						$('#TopBar').css({
+							'border-color': result.color
+						});
+
 					}
-		
+
 				});
 
 			}, 150);
