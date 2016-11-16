@@ -16,7 +16,7 @@ Meteor.methods({
       var future = new Future();
 
       downloader.getInfo(url, Meteor.bindEnvironment(function(error, info){
-        
+
        // check wether youtube-dl was able to handle the url
         if(!info){
           future.throw(new Meteor.Error('url_invalid', 'url was not valid'));
@@ -42,7 +42,7 @@ Meteor.methods({
           Playlist.insert(playlistEntry, function(error, id){
                 if(!error){
                     // if cached download the song
-                    if(cached){
+                    if(Options.findOne().download){
                       // default arguments youtube-dl
                       var args = ['--format=251/171/140/250/249/bestaudio'];
 
@@ -56,12 +56,12 @@ Meteor.methods({
                       song.pipe(fs.createWriteStream(`songs/${filename}`));
 
                       Playlist.update({_id: id}, {$set: {'file': `songs/${filename}`}});
-                    } 
+                    }
 
                     // playlistLength is the length BEFORE inserting the new song
                     // if this is the only song in the playlist, start it
                     if(playlistLength == 0){
-                      if(cached){
+                      if(Options.findOne().download){
                         // check for the filesize because when 'play' is called the early, the filesize is so small
                         // playback stops immediatly
                         var fileWatcher = fsw.watch(`songs/${filename}`).on('sizeChange', Meteor.bindEnvironment(function (newSize, oldSize){
@@ -71,12 +71,12 @@ Meteor.methods({
                             // release the file watcher
                             fileWatcher.stop();
                           }
-                        }));                    
+                        }));
                       }
                       // uncached case is just streaming anyway
                       else{
                         Meteor.call('play');
-                      }  
+                      }
                     }
 
                     future.return(true);
@@ -87,7 +87,7 @@ Meteor.methods({
                 }
 
           });
-        
+
         }
 
       }));

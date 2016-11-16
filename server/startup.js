@@ -7,9 +7,6 @@ import fsw from 'file-size-watcher';
 // global variable to access mpv
 mpv_player = null;
 
-// state weather songs should be cached or not
-cached = true;
-
 // saves the mpv status properties
 player_status = {};
 
@@ -58,6 +55,11 @@ Meteor.startup(function() {
         Status.update({}, {$set: {currentPosition: 0, playing: false}});
     }
 
+    // create the options database object, if not already created
+    if(Options.find().count() == 0){
+        Options.insert({});
+    }
+
 
     // set the volume
     mpv_player.volume(Status.findOne().volume);
@@ -65,7 +67,7 @@ Meteor.startup(function() {
 
 
     // download every song if cached mode is activated
-    if (cached) {
+    if (Options.findOne().download) {
         // arguments to select the format for youtube-dl
         var args = ['--format=251/171/140/250/249/bestaudio'];
 
@@ -92,7 +94,7 @@ Meteor.startup(function() {
 
     // if there are songs in the queue, play them
     if(Playlist.find().count() > 0){
-        if(cached){
+        if(Options.findOne().download){
 
             var file = Playlist.findOne({'position': 0}).file;
 
@@ -113,14 +115,14 @@ Meteor.startup(function() {
                             // release the file watcher
                             fileWatcher.stop();
                         }
-                    }));   
+                    }));
                 }
             }
             // when there is no file just let the 'play' method handle the playback
             else{
                 Meteor.call('play');
             }
-                             
+
           }
       // uncached case is just streaming anyway
       else{
