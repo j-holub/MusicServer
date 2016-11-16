@@ -5,17 +5,7 @@ Template.playlist.helpers({
     },
     durationDisplay: function() {
     	return timeFormat(this.duration, this.duration);
-   	},
-    playlistDuration: function() {
-      var Songs = Playlist.find({'position': {$gte: 1}});
-      // the total duration
-      var totalDuration = 0;
-      Songs.forEach(function (song) {
-        totalDuration += song.duration;
-      });
-      // return the formatted timestring
-      return timeFormat(totalDuration, totalDuration);
-    }
+   	}
 });
 
 Template.playlist.events({
@@ -29,6 +19,6 @@ Template.playlist.events({
 
 Template.playlist.onCreated(function() {
   this.autorun(function() {
-	   this.subscribe('playlist');   
+	   this.subscribe('playlist');
   }.bind(this));
 });
