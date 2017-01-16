@@ -23,13 +23,13 @@ var addSong = function() {
 			else{
 				if(error.error == "url_invalid"){
 					alert("Not a valid URL");
-				}				
+				}
 			}
 
 			// when the enqueue method has returned, set the flag to false
 			Session.set('enqueuing', false);
 		});
-		
+
 	}
 }
 
@@ -43,7 +43,7 @@ Template.enqueue.helpers({
 	disabled: function() {
 		if(Session.get('enqueuing')){
 			return "disabled";
-		} 
+		}
 		else{
 			return "";
 		}
@@ -52,18 +52,18 @@ Template.enqueue.helpers({
 
 
 Template.enqueue.events({
-	'click #enqueueButton': function (event) {
+	'submit #enqueueForm': function (event) {
+		// prevent Default form behaviour
+		event.preventDefault();
+		// if the user is not enqueuing right now, add the song
 		if(!Session.get('enqueuing')){
 			addSong();
 		}
 	},
 	'keypress #enqueueInput': function (event) {
-		// Enter / Return
-		if(event.charCode == 13 && !Session.get('enqueuing')){
-			addSong();
-		}
 		// Escape
-		else if(event.charCode == 27){
+		// Lose focus on the input field
+		if(event.charCode == 27){
 			$('#enqueueInput').blur();
 		}
 	}
