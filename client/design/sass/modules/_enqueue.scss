@@ -6,9 +6,11 @@ $inputBackgroundColor: #F4F4F4;
 
 	background-color: $enqueueBgColor;
 
-	div.container{
-		margin: 0.5em auto;
 
+	form#enqueueForm{
+		width: 65%;
+
+		margin: 0.5em auto;
 		display: flex;
 	}
 
@@ -40,7 +42,8 @@ $inputBackgroundColor: #F4F4F4;
 		background-color: #C4C4C4;
 	}
 
-	div#enqueueButton{
+	button#enqueueButton{
+
 		padding: 0.6em 1.2em;
 		margin: 0;
 
@@ -52,6 +55,20 @@ $inputBackgroundColor: #F4F4F4;
 		transition: all 0.3s ease-in-out;
 
 		cursor: pointer;
+		border: none;
+
+		display: flex;
+
+	}
+	button#enqueueButton:hover{
+		background-color: $highlightColorShade;
+	}
+	button#enqueueButton:focus{
+		outline: none;
+	}
+
+	div.spinnerContainer{
+		@extend button#enqueueButton;
 
 		// centers the spinner
 		display: flex;
@@ -60,13 +77,6 @@ $inputBackgroundColor: #F4F4F4;
 
 		width: 1.8em;
 		height: 1.8em;
-
-	}
-	div#enqueueButton:hover{
-		background-color: $highlightColorShade;
-	}
-	div#enqueueButton:focus{
-		outline: none;
 	}
 
 }
