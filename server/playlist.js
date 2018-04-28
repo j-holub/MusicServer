@@ -19,6 +19,7 @@ Meteor.methods({
 
        // check wether youtube-dl was able to handle the url
         if(!info){
+          console.log(error);
           future.throw(new Meteor.Error('url_invalid', 'url was not valid'));
         }
         // everything went fine
