@@ -1,10 +1,20 @@
 'use strict';
 
+
 const http = require('http');
 const path = require('path');
 
 const socketIO = require('socket.io');
 const express = require('express');
+
+const cfg = require(path.join(__dirname, 'lib/config.js'));
+
+
+
+
+// read the config
+const config = new cfg(path.join(__dirname, '../config.json'));
+
 
 
 // Express JS Web App
@@ -16,10 +26,12 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/main.html'));
 });
 
+
+
 // Socket IO
 // create the server
 const server = http.Server(app);
-server.listen(8080);
+server.listen(config.port);
 // io
 const io = socketIO(server);
 
