@@ -1,8 +1,9 @@
 'use strict';
 
+const http = require('http');
 const path = require('path');
 
-const io = require('socket.io');
+const socketIO = require('socket.io');
 const express = require('express');
 
 
@@ -15,4 +16,13 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/main.html'));
 });
 
-app.listen(8080);
+// Socket IO
+// create the server
+const server = http.Server(app);
+server.listen(8080);
+// io
+const io = socketIO(server);
+
+io.on('connection', ()=> {
+	console.log('connected');
+});
