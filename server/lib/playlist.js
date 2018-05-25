@@ -104,6 +104,31 @@ const Playlist = class{
 		return this.playlistpos+1;
 	}
 
+	// Gets the current song
+	//
+	// @return {JSON} - current song
+	currentSong() {
+		return this.list[position];
+	}
+
+	// Gets the song at position pos (0 based)
+	//
+	// @return - song at position pos or null if the position does not exist
+	songAtPosition(pos) {
+		if(pos >= this.list.length){
+			return null;
+		}
+		else{
+			return this.list[pos];
+		}
+	}
+
+	// Gets the song at position pos (1 based)
+	//
+	// @return - song at position pos or null if the position does not exist
+	songAtPosition1(pos) {
+		return songAtPosition(pos-1);
+	}
 
 }
 
