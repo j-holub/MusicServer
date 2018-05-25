@@ -8,8 +8,7 @@ const socketIO = require('socket.io');
 const express = require('express');
 
 const Cgf = require(path.join(__dirname, 'lib/config.js'));
-const Downloader = require(path.join(__dirname, 'lib/downloader.js'));
-const Playlist = require(path.join(__dirname, 'lib/playlist.js'));
+const Player = require(path.join(__dirname, 'lib/player.js'));
 
 
 
@@ -17,7 +16,8 @@ const Playlist = require(path.join(__dirname, 'lib/playlist.js'));
 // read the config
 const config = new Cgf(path.join(__dirname, '../config.json'));
 // playlist
-const playlist = new Playlist(path.join(__dirname, `../${config.cache_dir}`));
+const player = new Player(path.join(__dirname, `../${config.cache_dir}`));
+
 
 
 // Express JS Web App

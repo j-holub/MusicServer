@@ -11,7 +11,6 @@ const Downloader = require(path.join(__dirname, 'downloader.js'));
 const Playlist = class{
 
 	constructor(cache_dir) {
-		console.log(cache_dir);
 		// the plastlist
 		this.list = [];
 		// downloader
@@ -104,11 +103,12 @@ const Playlist = class{
 		return this.playlistpos+1;
 	}
 
+
 	// Gets the current song
 	//
 	// @return {JSON} - current song
 	currentSong() {
-		return this.list[position];
+		return this.list[this.playlistpos];
 	}
 
 	// Gets the song at position pos (0 based)
@@ -128,6 +128,14 @@ const Playlist = class{
 	// @return - song at position pos or null if the position does not exist
 	songAtPosition1(pos) {
 		return songAtPosition(pos-1);
+	}
+
+	next() {
+		this.playlistpos = Math.max(this.playlistpos+1, this.list.length-1);
+	}
+
+	prev() {
+		this.playlistpos = Math.min(this.playlistpos-1, 0);
 	}
 
 }
