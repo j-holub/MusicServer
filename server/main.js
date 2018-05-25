@@ -7,14 +7,16 @@ const path = require('path');
 const socketIO = require('socket.io');
 const express = require('express');
 
-const cfg = require(path.join(__dirname, 'lib/config.js'));
+const Cgf = require(path.join(__dirname, 'lib/config.js'));
+const Downloader = require(path.join(__dirname, 'lib/downloader.js'));
 
 
 
 
 // read the config
-const config = new cfg(path.join(__dirname, '../config.json'));
-
+const config = new Cgf(path.join(__dirname, '../config.json'));
+// downloader
+const downloader = new Downloader(path.join(__dirname, `../${config.cache_dir}`));
 
 
 // Express JS Web App

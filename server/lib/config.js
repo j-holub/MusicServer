@@ -10,7 +10,8 @@ const Config = class{
 		const config_content = JSON.parse(fs.readFileSync(config_path));
 
 		// set member variables
-		this.port = config_content.port;
+		this.port 	   = config_content.port;
+		this.cache_dir = config_content.cache_dir
 	}
 }
 
