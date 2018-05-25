@@ -2,3 +2,9 @@
 node_modules/
 # OS X
 *.DS_Store
+
+#Dev Node-Mpv
+Node-MPV/
+
+# Default Music Server Cache
+.cache/
