@@ -9,14 +9,15 @@ const express = require('express');
 
 const Cgf = require(path.join(__dirname, 'lib/config.js'));
 const Downloader = require(path.join(__dirname, 'lib/downloader.js'));
+const Playlist = require(path.join(__dirname, 'lib/playlist.js'));
 
 
 
 
 // read the config
 const config = new Cgf(path.join(__dirname, '../config.json'));
-// downloader
-const downloader = new Downloader(path.join(__dirname, `../${config.cache_dir}`));
+// playlist
+const playlist = new Playlist(path.join(__dirname, `../${config.cache_dir}`));
 
 
 // Express JS Web App
